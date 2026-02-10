@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 70" role="img" aria-label="MPS Andamios">
+  <title>MPS Andamios</title>
+
+  <!-- Casco frontal minimalista -->
+  <g fill="none" stroke="#0A66C2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+     transform="translate(0,5) scale(0.85)">
+    
+    <!-- Cúpula -->
+    <path d="M20 45 Q22 25 40 15 Q60 5 80 15 Q98 25 100 45"/>
+
+    <!-- Visera -->
+    <path d="M16 45 Q60 60 104 45"/>
+
+    <!-- Laterales del casco -->
+    <path d="M20 45 Q30 52 40 53"/>
+    <path d="M100 45 Q90 52 80 53"/>
+
+    <!-- Nervio central -->
+    <path d="M60 12 Q60 26 60 44"/>
+
+    <!-- Nervios laterales -->
+    <path d="M48 18 Q52 32 52 44"/>
+    <path d="M72 18 Q68 32 68 44"/>
+
+    <!-- Ceja frontal -->
+    <path d="M35 35 Q60 28 85 35"/>
+  </g>
+
+  <!-- Texto MPS -->
+  <text x="120" y="32"
+        font-family="Inter, Arial, sans-serif"
+        font-size="32"
+        font-weight="800"
+        fill="#0F172A"
+        letter-spacing="1">
+    MPS
+  </text>
+
+  <!-- Texto ANDAMIOS (Optimizado — Versión A) -->
+  <text x="120" y="55"
+        font-family="Inter, Arial, sans-serif"
+        font-size="18"
+        font-weight="800"
+        fill="#0A66C2"
+        letter-spacing="0.5">
+    ANDAMIOS
+  </text>
+
+</svg>

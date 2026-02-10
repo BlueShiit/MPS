@@ -1,0 +1,1318 @@
+/* ============================
+   MPS — Hoja de estilos base (actualizada con Hero Carrusel)
+   ============================ */
+
+:root{
+  --primario:#0A66C2;
+  --acento:#FFB703;
+  --oscuro:#0F172A;
+  --gris:#F1F5F9;
+  --borde:#E5E7EB;
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{ margin:0; font-family:Inter,system-ui,Arial,sans-serif; color:#111; background:#fff; }
+a{ color:inherit; text-decoration:none; }
+
+.container{ width:min(1100px,92%); margin-inline:auto; }
+
+/* ---------- Topbar ---------- */
+.topbar{ position:sticky; top:0; background:#fff; border-bottom:1px solid var(--borde); z-index:20; }
+.wrap{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; }
+.logo{ font-weight:800; color:var(--oscuro); }
+.logo span{ color:var(--primario); }
+.nav a{ margin-left:18px; font-weight:600; color:#334155; }
+.nav a:hover{ color:var(--primario); }
+
+.logo-svg img{
+  height: 46px;   /* prueba con 32 si lo quieres un poco más grande */
+  width: auto;
+  display: block;
+}
+
+/* ---------- HERO CARRUSEL ---------- */
+.hero-slider{ position:relative; height:85vh; overflow:hidden; color:#fff; }
+.carousel{ height:100%; position:relative; }
+.slide{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:left; background-size:cover; background-position:center; opacity:0; transition:opacity 1s ease; }
+.slide.is-active{ opacity:1; z-index:1; }
+.slide::before{ content:''; position:absolute; inset:0; background:rgba(0,0,0,0.45); }
+.caption{ position:relative; z-index:2; max-width:700px; }
+.caption h1,
+.caption h2{
+  font-size:clamp(28px,5vw,46px);
+  margin-bottom:10px;
+  color:#ffffff;              /* TEXTO PRINCIPAL BLANCO */
+  text-shadow: 0 4px 12px rgba(0,0,0,0.6); /* SOMBRA PARA LEGIBILIDAD */
+}
+
+.caption p{
+  font-size:18px;
+  max-width:60ch;
+  color:#e5e7eb;              /* GRIS CLARO (mejor que azul) */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+.pill{ display:inline-block; background:var(--acento); color:#111; padding:6px 10px; border-radius:999px; font-size:14px; font-weight:700; margin-bottom:14px; }
+
+/* Controles del carrusel */
+.ctrl{ position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.4); color:#fff; border:none; font-size:40px; width:48px; height:48px; border-radius:50%; cursor:pointer; transition:background .3s; z-index:5; }
+.ctrl:hover{ background:rgba(0,0,0,0.7); }
+.ctrl.prev{ left:20px; }
+.ctrl.next{ right:20px; }
+
+/* Dots */
+.dots{ position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:6; }
+.dots button{ width:12px; height:12px; border-radius:50%; border:1px solid #fff; background:transparent; cursor:pointer; }
+.dots button.active{ background:#fff; }
+
+/* ---------- Secciones base ---------- */
+.section{ padding:64px 0; }
+#nosotros .section-title{
+  margin-bottom: 28px;   /* ↑ más espacio título → texto */
+}
+.section h2{ margin:0 0 12px; font-size:28px; }
+.lead{ color:#334155; max-width:70ch; }
+.grid2{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:22px; }
+.card{ background:var(--gris); border:1px solid var(--borde); border-radius:14px; padding:16px; }
+/* ===== NOSOTROS ===== */
+#nosotros h2 {
+  text-align: center;
+}
+
+#nosotros .lead {
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* ---------- Utilidades ---------- */
+.muted{ color:#64748B; }
+.tiny{ font-size:12px; }
+.badge{ display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border:1px solid var(--borde); border-radius:12px; }
+.stack{ display:flex; flex-wrap:wrap; gap:10px; }
+.list-clean{ padding-left:18px; }
+
+/* ---------- Footer ---------- */
+footer{ padding:28px 0; background:#0b1220; color:#cbd5e1; text-align:left; }
+footer a{ color:#cbd5e1; }
+
+@media(max-width:480px){
+  .hero-slider{ height:70vh; }
+  .caption h1,.caption h2{ font-size:clamp(22px,6vw,32px); }
+  .cta{ width:100%; text-align:center; }
+}
+
+/* ===== ANIMACIONES HERO ===== */
+
+.animate{
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s ease forwards;
+}
+
+.animate.delay-1{ animation-delay: 0.2s; }
+.animate.delay-2{ animation-delay: 0.4s; }
+.animate.delay-3{ animation-delay: 0.6s; }
+
+@keyframes fadeUp{
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+form label{
+  display:block;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+form input,
+form textarea{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--borde);
+  border-radius:8px;
+  font-size:14px;
+  font-family:inherit;
+}
+
+form input:focus,
+form textarea:focus{
+  outline:none;
+  border-color:var(--primario);
+}
+
+/* ===== WIDGET CONTACTO ===== */
+
+.contact-toggle{
+  position:fixed;
+  bottom:24px;
+  left:24px;
+
+  width:72px;
+  height:72px;
+  border-radius:20px;
+  border:none;
+
+  background:var(--primario);      /* Azul MPS */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  z-index:50;
+
+  /* Animaciones y transiciones */
+  overflow:visible;
+  transition: transform .2s ease, box-shadow .2s ease;
+  animation: contactFadeIn .5s ease-out .4s both;
+}
+
+.contact-toggle::after{
+  content:'';
+  position:absolute;
+  inset:-10px;                         /* halo más grande */
+  border-radius:inherit;
+  border:3px solid rgba(10,102,194,0.45);
+  opacity:0;
+  pointer-events:none;
+  animation: contactHalo 2.8s ease-out 1.5s infinite;
+}
+
+/* Animación de entrada del botón (fade + subida suave) */
+@keyframes contactFadeIn{
+  from{
+    opacity:0;
+    transform:translateY(10px) scale(0.9);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* Animación del halo pulsando */
+@keyframes contactHalo{
+  0%{
+    transform:scale(1);
+    opacity:0;
+  }
+  25%{
+    transform:scale(1.15);
+    opacity:0.9;
+  }
+  45%{
+    transform:scale(1.35);
+    opacity:0.6;
+  }
+  70%{
+    transform:scale(1.6);
+    opacity:0;
+  }
+  100%{
+    transform:scale(1.6);
+    opacity:0;
+  }
+}
+
+.contact-icon-svg{
+  width:72px;
+  height:72px;
+  animation: 
+    iconBounce 4s ease-in-out 3s infinite,
+    iconShake 6s ease-in-out 4s infinite;
+}
+
+@keyframes iconShake{
+  0%{ transform:translateX(0); }
+  2%{ transform:translateX(-2px); }
+  4%{ transform:translateX(2px); }
+  6%{ transform:translateX(-2px); }
+  8%{ transform:translateX(2px); }
+  10%{ transform:translateX(0); }
+  100%{ transform:translateX(0); }
+}
+
+@keyframes iconBounce{
+  0%{ transform:translateY(0); }
+  5%{ transform:translateY(-6px); }
+  10%{ transform:translateY(0); }
+  15%{ transform:translateY(-3px); }
+  20%{ transform:translateY(0); }
+  100%{ transform:translateY(0); }
+}
+
+.contact-toggle:hover{
+  filter:brightness(1.05);
+  transform: scale(1.08);
+  box-shadow:0 16px 35px rgba(0,0,0,0.35);
+}
+
+/* Panel */
+.contact-panel{
+  position:fixed;
+  bottom:90px;
+  left:24px;
+  width:320px;
+  max-width:90vw;
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 18px 40px rgba(15,23,42,0.35);
+  overflow:hidden;
+  transform:translateY(120%);
+  opacity:0;
+  pointer-events:none;
+  transition:transform .35s ease, opacity .35s ease;
+  z-index:60;
+}
+
+.contact-panel.is-open{
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+
+.contact-panel-header{
+  background:#e11d48;
+  color:#fff;
+  padding:14px 16px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.contact-avatar{
+  width:36px;
+  height:36px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+
+.contact-panel-header h3{
+  margin:0;
+  font-size:16px;
+}
+
+.contact-panel-header p{
+  margin:2px 0 0;
+  font-size:12px;
+  opacity:0.9;
+}
+
+.contact-close{
+  margin-left:auto;
+  background:transparent;
+  border:none;
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.contact-panel-body{
+  padding:14px 16px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* Opción WhatsApp */
+.contact-option{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--borde);
+  cursor:pointer;
+  text-decoration:none;
+  color:inherit;
+}
+
+.contact-option:hover{
+  background:#f9fafb;
+}
+
+.contact-icon{
+  width:32px;
+  height:32px;
+  border-radius:999px;
+  background:#22c55e;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:18px;
+}
+
+/* Formulario dentro del widget */
+.contact-form{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.contact-form label{
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:2px;
+}
+
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid var(--borde);
+  font-size:13px;
+  font-family:inherit;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus{
+  outline:none;
+  border-color:var(--primario);
+}
+
+/* ========== Modal Cotización Rápida ========== */
+.quote-modal{
+  position:fixed;
+  inset:0;
+  z-index:60;
+  display:none;
+}
+
+.quote-modal.is-open{
+  display:block;
+}
+
+.quote-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(15,23,42,0.55);
+  backdrop-filter:blur(2px);
+}
+
+.quote-card{
+  position:relative;
+  max-width:480px;
+  margin:60px auto;
+  background:#ffffff;
+  border-radius:18px;
+  padding:24px 24px 20px;
+  box-shadow:0 18px 45px rgba(15,23,42,0.45);
+}
+
+.quote-card h2{
+  margin:0 0 6px;
+  font-size:22px;
+  color:#0f172a;
+}
+
+.field{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.field label{
+  font-size:14px;
+  font-weight:600;
+  color:#0f172a;
+}
+
+.field input,
+.field select{
+  font:inherit;
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid var(--borde);
+  outline:none;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:var(--primario);
+  box-shadow:0 0 0 1px rgba(10,102,194,0.15);
+}
+
+.quote-actions{
+  margin-top:18px;
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+}
+
+/* Botón secundario */
+.btn-ghost{
+  padding:9px 14px;
+  border-radius:10px;
+  border:1px solid var(--borde);
+  background:#fff;
+  font:inherit;
+  cursor:pointer;
+}
+
+.btn-ghost:hover{
+  background:#f1f5f9;
+}
+
+/* Cerrar (X) */
+.quote-close{
+  position:absolute;
+  top:10px;
+  right:14px;
+  border:none;
+  background:transparent;
+  color:#64748b;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.quote-close:hover{
+  color:#0f172a;
+}
+
+@media (max-width:600px){
+  .quote-card{
+    margin:32px 16px;
+    padding:20px 18px 18px;
+  }
+}
+
+.cta {
+  display:inline-block;
+  margin-top:18px;
+  padding:12px 20px;
+  background:var(--primario);
+  color:#fff;
+  border-radius:10px;
+  font-weight:700;
+}
+.cta:hover{
+  filter:brightness(0.9);
+}
+
+.cta-cotizar {
+  box-shadow:0 4px 10px rgba(10,102,194,0.3);
+  transition:all 0.25s ease;
+}
+
+.cta-cotizar:hover {
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(10,102,194,0.45);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder{
+  color:#94a3b8;
+  opacity:1;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus{
+  box-shadow:0 0 0 3px rgba(10,102,194,0.15);
+}
+
+/* ===== EXPLORAR (Servicios / Proyectos) ===== */
+
+.grid-explore{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.explore-card{
+  position: relative;
+  height: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+  display: block;
+}
+
+.explore-card img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Capa oscura encima */
+.explore-card::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.65),
+    rgba(0,0,0,0.2)
+  );
+}
+
+/* Texto */
+.explore-card span{
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 2;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+/* ===== HOVER ELEGANTE ===== */
+
+.explore-card{
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.explore-card img{
+  transition: transform .45s ease;
+}
+
+/* Flecha */
+.explore-card .arrow{
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 22px;
+
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity .25s ease, transform .25s ease, background .25s ease;
+}
+
+/* Hover efectos */
+.explore-card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(15,23,42,0.25);
+}
+
+.explore-card:hover img{
+  transform: scale(1.06);
+}
+
+.explore-card:hover .arrow{
+  opacity: 1;
+  transform: translateX(0);
+  background: rgba(0,0,0,0.65);
+}
+
+/* ===== ANIMACIÓN AL HACER SCROLL (reveal) ===== */
+.reveal{
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== TOPBAR estilo Liquid Glass Azul (sin bordes redondeados) ===== */
+.topbar--glass{
+  background: rgba(74, 120, 190, 0.65); /* azul como la referencia */
+  
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+
+  border-radius: 0; /* 🔴 sin redondeado */
+
+  box-shadow:
+    0 10px 24px rgba(20,40,90,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+
+  transition: background .3s ease, box-shadow .3s ease;
+}
+
+.topbar--glass .nav a{
+  color: #f1f5ff;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 10px;
+  transition: background .25s ease, color .25s ease;
+}
+
+.topbar--glass .nav a:hover{
+  background: rgba(255,255,255,0.18);
+  color: #ffffff;
+}
+
+.topbar--glass::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.18),
+    transparent 45%
+  );
+  pointer-events:none;
+}
+
+
+/* ===== SERVICIOS (servicios.html) ===== */
+.services-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap:24px;
+  align-items: stretch;
+}
+
+/* Tarjeta */
+.service-card{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background:#fff;
+  border:1px solid var(--borde);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(15,23,42,0.08);
+}
+
+/* Imagen arriba */
+.service-media{
+  height:260px;
+  background:#e5e7eb;
+}
+
+.service-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+/* Contenido */
+.service-body{
+  padding:18px 18px 20px;
+  display:flex;
+  flex-direction:column;
+  flex: 1;           /* ✅ CLAVE: ocupa el alto restante del card */
+}
+
+.service-tag{
+  display: inline-block;
+  width: fit-content;        /* ✅ se ajusta al texto */
+  align-self: flex-start;    /* ✅ evita el stretch del flex */
+  padding: 3px 10px;
+  background: #FFB703;
+  color: #111;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.service-title{
+  margin:0 0 10px;
+  font-size:22px;
+  color:#0f172a;
+}
+
+.service-subtitle{
+  margin:0 0 14px;
+  color:#334155;
+  line-height:1.6;
+}
+
+/* Lista con “checks” */
+.service-list{
+  list-style:none;
+  padding:0;
+  margin:0 0 18px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.service-list li{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  color:#0f172a;
+}
+
+.service-list li::before{
+  content:"✓";
+  font-weight:900;
+  color:var(--acento);
+  margin-top:1px;
+}
+
+/* Botones */
+.service-actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top: auto;
+}
+
+.service-link{
+  font-weight:700;
+  color:#0f172a;
+  opacity:0.85;
+}
+
+.service-link:hover{
+  opacity:1;
+  text-decoration:underline;
+}
+
+/* ===== TOPBAR Glass fuerte + bordes más oscuros ===== */
+.topbar--glass-strong{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  /* vidrio más oscuro (para que se note sobre blanco) */
+  background: rgba(10, 18, 32, 0.28);
+  backdrop-filter: blur(26px) saturate(170%);
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+
+  /* borde y separación */
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+
+  /* sombra para que se vea en fondo blanco */
+  box-shadow:
+    0 10px 28px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.20);
+}
+
+/* Orillas más oscuras (difuminado lateral + un poco abajo) */
+.topbar--glass-strong::before{
+  content:"";
+  position:absolute;
+  inset: 0;
+  pointer-events:none;
+
+  /* vignette: lados más oscuros + un toque abajo */
+  background:
+    radial-gradient(120% 140% at 50% -20%,
+      rgba(255,255,255,0.18) 0%,
+      rgba(255,255,255,0.06) 45%,
+      rgba(0,0,0,0.00) 70%
+    ),
+    linear-gradient(to right,
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0.00) 18%,
+      rgba(0,0,0,0.00) 82%,
+      rgba(0,0,0,0.35) 100%
+    ),
+    linear-gradient(to bottom,
+      rgba(0,0,0,0.00) 0%,
+      rgba(0,0,0,0.22) 100%
+    );
+}
+
+/* Asegura que el contenido quede por encima del difuminado */
+.topbar--glass-strong .wrap{
+  position: relative;
+  z-index: 1;
+}
+
+/* Links un poco más claros para que se lean sobre el glass oscuro */
+.topbar--glass-strong .nav a{
+  color: rgba(255,255,255,0.92);
+}
+.topbar--glass-strong .nav a:hover{
+  color: #FFB703;
+}
+
+.section-title{
+  text-align:center;
+}
+
+.center{
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.about-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:18px;
+  margin-top:26px;
+}
+
+.about-card{
+  background: var(--gris);
+  border:1px solid var(--borde);
+  border-radius:16px;
+  padding:18px;
+}
+
+.about-card h3{
+  margin:0 0 8px;
+  color:#0f172a;
+}
+
+.about-card p{
+  margin:0;
+  color:#334155;
+  line-height:1.6;
+}
+
+.about-card ul{
+  margin:10px 0 0;
+  padding-left:18px;
+  color:#334155;
+  line-height:1.6;
+}
+
+/* ===== NOSOTROS — Liquid Glass Cards ===== */
+.about-card{
+  position: relative;
+  overflow: hidden;
+
+  /* glass */
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+
+  border: 1px solid rgba(15,23,42,0.10);
+  border-radius: 18px;
+
+  box-shadow:
+    0 12px 28px rgba(15,23,42,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+/* brillo superior */
+.about-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.55),
+    rgba(255,255,255,0.08) 55%,
+    rgba(255,255,255,0.00)
+  );
+  opacity: .55;
+}
+
+/* “mancha” suave para dar vida */
+.about-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  /* PATRÓN ÚNICO: luz desde esquina superior izquierda */
+  background:
+    radial-gradient(
+      140% 140% at 0% 0%,
+      var(--glass-color) 0%,
+      rgba(0,0,0,0) 70%
+    );
+
+  opacity: 0.55;
+  transition: opacity .25s ease;
+}
+
+.about-card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(10,102,194,0.18);
+  box-shadow:
+    0 18px 45px rgba(15,23,42,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.45);
+}
+
+.about-card:hover::after{
+  opacity: .85;
+  transform: scale(1.05);
+}
+
+/* texto más “pro” dentro del glass */
+.about-card h3{
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+.about-card p,
+.about-card ul{
+  color:#334155;
+}
+
+/* mejorar bullets para que se vean más finos */
+.about-card ul{
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+.about-card li{
+  margin: 6px 0;
+}
+/*
+.about-blue::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(120% 120% at 0% 0%,
+      rgba(10,102,194,0.35),
+      rgba(10,102,194,0.00) 60%
+    );
+
+  opacity:.55;
+}
+
+.about-yellow::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(120% 120% at 100% 0%,
+      rgba(255,183,3,0.40),
+      rgba(255,183,3,0.00) 60%
+    );
+
+  opacity:.55;
+}
+
+.about-dark::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(120% 120% at 50% 100%,
+      rgba(15,23,42,0.45),
+      rgba(15,23,42,0.00) 65%
+    );
+
+  opacity:.45;
+}
+*/
+
+.about-blue{
+  --glass-color: rgba(10,102,194,0.45);
+}
+
+.about-yellow{
+  --glass-color: rgba(255,183,3,0.45);
+}
+
+.about-dark{
+  --glass-color: rgba(15,23,42,0.50);
+}
+
+/* ===== Separador Nosotros ===== */
+.nosotros-intro{
+  margin-bottom: 80px;
+}
+
+.nosotros-divider{
+  width: 100%;
+  max-width: 520px;
+  height: 1px;
+  margin: 0 auto 64px;
+  backdrop-filter: blur(3px);
+
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0),
+    rgba(10,102,194,0.45),
+    rgba(0,0,0,0)
+  );
+}
+
+/* ===== EXPLORAR — Espaciado y consistencia ===== */
+.explorar-intro{
+  margin-top: 10px;
+  margin-bottom: 28px;
+}
+
+/* si quieres que el título y el intro queden centrados como Nosotros */
+.section h2{
+  scroll-margin-top: 90px; /* evita que el sticky tape el título al navegar */
+}
+
+/* ===== EXPLORAR — borde glass + brillo ===== */
+/* ===== EXPLORAR — Capas correctas (para que se note el glass) ===== */
+.explore-card{
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow:
+    0 18px 40px rgba(15,23,42,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+}
+
+/* imagen al fondo */
+.explore-card img{
+  position: relative;
+  z-index: 0;
+}
+
+/* capa oscura */
+.explore-card::after{
+  z-index: 1;
+}
+
+/* brillo superior tipo glass */
+.explore-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.22),
+    rgba(255,255,255,0.04) 55%,
+    rgba(0,0,0,0)
+  );
+  opacity: .75;
+  z-index: 2;
+}
+
+/* texto y flecha por encima */
+.explore-card span,
+.explore-card .arrow{
+  z-index: 3;
+}
+
+/* ===== EXPLORAR — Encabezado de sección ===== */
+
+.explore-section{
+  padding-top: 90px;   /* más aire arriba */
+}
+
+.explore-title{
+  margin-bottom: 16px;
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.4px;
+  color: #0f172a;
+}
+
+/* texto descriptivo */
+.explore-lead{
+  max-width: 640px;
+  margin: 0 auto 28px;
+  color: #475569;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* línea divisoria visual */
+.explore-divider{
+  width: 100%;
+  max-width: 420px;
+  height: 1px;
+  margin: 0 auto 52px;
+
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0),
+    rgba(10,102,194,0.45),
+    rgba(0,0,0,0)
+  );
+
+  backdrop-filter: blur(2px);
+}
+
+/* ===== EXPLORE — Glass Panel ===== */
+/* ===== EXPLORAR — Panel glass sutil tipo “Por qué MPS” ===== */
+/* ===== EXPLORAR — Panel glass más sutil (halo en bordes + glow esquina) ===== */
+/* ===== EXPLORAR — Panel Glass Interactivo ===== */
+
+.explore-panel{
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 48px 40px 56px;
+
+  /* glass base */
+  background: rgba(255,255,255,0.30);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+
+  /* borde y sombra */
+  border: 1px solid rgba(15,23,42,0.10);
+  box-shadow:
+    0 18px 45px rgba(15,23,42,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.40);
+
+  /* halo sutil externo */
+  outline: 10px solid rgba(10,102,194,0.03);
+  outline-offset: -10px;
+
+  /* animación */
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    background .35s ease;
+}
+
+/* elimina cualquier before viejo */
+.explore-panel::before{
+  content: none !important;
+}
+
+/* glow azul desde esquina superior izquierda */
+.explore-panel::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background: radial-gradient(
+    140% 140% at 0% 0%,
+    rgba(10,102,194,0.38) 0%,
+    rgba(10,102,194,0.00) 65%
+  );
+
+  opacity: 0.60;
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+/* contenido por encima del glow */
+/* ===== EXPLORAR — Panel Glass Interactivo (borde difuminado + glow esquina) ===== */
+
+.explore-panel{
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 48px 40px 56px;
+
+  /* glass base */
+  background: rgba(255,255,255,0.30);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+
+  /* borde y sombra */
+  border: 1px solid rgba(15,23,42,0.10);
+  box-shadow:
+    0 18px 45px rgba(15,23,42,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.40);
+
+  /* animación */
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    background .35s ease,
+    border-color .35s ease;
+}
+
+/* HALO / CONTORNO DIFUMINADO (similar a “Por qué MPS”) */
+.explore-panel::before{
+  content:"";
+  position:absolute;
+  inset:-18px;                 /* hace que el halo “respire” hacia afuera */
+  border-radius: inherit;
+  pointer-events:none;
+
+  /* borde difuminado tipo navbar (vignette suave en el perímetro) */
+  background:
+    radial-gradient(120% 120% at 0% 0%,
+      rgba(10,102,194,0.22) 0%,
+      rgba(10,102,194,0.00) 55%
+    ),
+    radial-gradient(120% 120% at 100% 100%,
+      rgba(0,0,0,0.10) 0%,
+      rgba(0,0,0,0.00) 60%
+    );
+
+  opacity: 0.55;
+  filter: blur(10px);
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+/* glow azul desde esquina superior izquierda (luz interna) */
+.explore-panel::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+
+  background: radial-gradient(
+    140% 140% at 0% 0%,
+    rgba(10,102,194,0.34) 0%,
+    rgba(10,102,194,0.00) 65%
+  );
+
+  opacity: 0.55;
+  transition: opacity .35s ease, transform .35s ease;
+}
+
+/* contenido por encima de capas */
+.explore-panel > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== HOVER — resaltar TODO (contenido + halo + glow) ===== */
+.explore-panel:hover{
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.36);
+  border-color: rgba(10,102,194,0.18);
+
+  box-shadow:
+    0 30px 75px rgba(15,23,42,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.55);
+}
+
+/* halo exterior más notorio */
+.explore-panel:hover::before{
+  opacity: 0.95;
+  transform: scale(1.02);
+}
+
+/* glow interno más notorio */
+.explore-panel:hover::after{
+  opacity: 0.90;
+  transform: scale(1.05);
+}
+
+/* texto más presente */
+.explore-panel:hover .explore-title{ color:#0f172a; }
+.explore-panel:hover .explore-lead{ color:#334155; }
+
+/* divisor más visible */
+.explore-panel:hover .explore-divider{
+  opacity: 0.90;
+  transform: scaleX(1.06);
+}
+
+/* transiciones suaves internas */
+.explore-title,
+.explore-lead,
+.explore-divider{
+  transition: color .3s ease, opacity .3s ease, transform .3s ease;
+}
+
+
+
+
+
+
+

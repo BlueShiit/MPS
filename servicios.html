@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Servicios | MPS — Montajes Profesionales & Soluciones</title>
+  <meta name="description" content="Servicios MPS: montaje y desmontaje de andamios y supervisión de obras con foco en seguridad, calidad y cumplimiento normativo." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- MISMO CSS DEL INDEX -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!-- ===== TOPBAR (IGUAL AL INDEX) ===== -->
+  <header class="topbar topbar--glass-strong">
+  <div class="container wrap">
+    <a href="index.html" class="logo logo-svg">
+      <img src="assets/img/logo-mps-navbar.svg" alt="MPS Andamios">
+    </a>
+
+    <nav class="nav" aria-label="principal">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#nosotros">Nosotros</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="proyectos.html">Proyectos</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+
+    <!-- ===== ENCABEZADO SERVICIOS ===== -->
+    <section class="section" aria-labelledby="servicios-title">
+      <div class="container" style="text-align:center;">
+        <h1 id="servicios-title" style="margin:0; font-size:clamp(32px,4vw,54px); color: #ffb703;">
+          Servicios
+        </h1>
+
+        <p class="lead" style="margin:14px auto 0; max-width:75ch;">
+          En <strong>MPS</strong> nos enfocamos en lo que mejor hacemos:
+          <strong>montaje y desmontaje de andamios</strong> y <strong>supervisión en obra</strong>,
+          con foco en seguridad, cumplimiento normativo y eficiencia en terreno.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ===== LISTADO DE SERVICIOS (2 tarjetas) ===== -->
+    <section class="section" aria-label="Listado de servicios">
+      <div class="container services-grid">
+
+        <!-- Servicio 1 -->
+        <article class="service-card">
+          <div class="service-media">
+            <img src="assets/img/montaje.jpg" alt="Montaje y desmontaje de andamios en obra" />
+          </div>
+
+          <div class="service-body">
+            <p class="service-tag">Servicio</p>
+            <h2 class="service-title">Montaje y desmontaje de andamios</h2>
+
+            <p class="service-subtitle">
+             Soluciones de trabajo en altura de manera eficiente y segura. Coordinamos la operación con procedimientos claros, planificación y control en terreno.
+            </p>
+
+            <p>
+              Ejecutamos el montaje y desmontaje de andamios con personal certificado, planificación por frente de trabajo y control permanente en terreno. 
+              Priorizamos la seguridad y la continuidad operacional, coordinando accesos, puntos críticos y la secuencia de armado para evitar detenciones y reprocesos.
+            </p>
+            <p>
+              Realizamos verificación visual de estabilidad, orden de componentes y condiciones básicas del área de trabajo, dejando registros y recomendaciones que permiten
+               mantener el estándar durante toda la faena.
+            </p>
+
+
+            <div class="service-actions">
+              <a href="#" class="cta cta-cotizar" onclick="abrirCotizacion(); return false;">
+                Cotizar
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Servicio 2 -->
+        <article class="service-card">
+          <div class="service-media">
+            <img src="assets/img/supervision.jpg" alt="Supervisión de obras y seguridad en andamios" />
+          </div>
+
+          <div class="service-body">
+            <p class="service-tag">Servicio</p>
+            <h2 class="service-title">Supervisión de obras</h2>
+
+            <p class="service-subtitle">
+              Supervisión en terreno enfocada en orden, seguridad y cumplimiento normativo. Apoyamos la gestión documental y el control de condiciones críticas para trabajos en altura.
+            </p>
+
+            <p>
+              Nuestro equipo supervisa las faenas en terreno verificando la correcta aplicación de procedimientos, el uso adecuado de EPP y la ejecución conforme a lo planificado. 
+              Actuamos como apoyo directo para jefaturas y contratistas en la coordinación diaria de los trabajos.
+            </p>
+            <p>
+              Además, gestionamos y revisamos la documentación exigida por obra —como checklists, registros e informes— entregando información clara y oportuna que facilita 
+              la toma de decisiones y la prevención de desviaciones durante la ejecución.
+            </p>
+
+
+            <div class="service-actions">
+              <a href="#" class="cta cta-cotizar" onclick="abrirCotizacion(); return false;">
+                Cotizar
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== COTIZACIÓN RÁPIDA (MISMO DEL INDEX) ========== -->
+  <div class="quote-modal" id="quote-modal" aria-hidden="true">
+    <div class="quote-backdrop" id="quote-backdrop"></div>
+
+    <div class="quote-card" role="dialog" aria-modal="true" aria-labelledby="quote-title">
+      <button class="quote-close" type="button" aria-label="Cerrar cotización">&times;</button>
+
+      <h2 id="quote-title">Cotización rápida</h2>
+      <p class="muted tiny">
+        Selecciona el tipo de andamio y completa los datos de tu obra. Te contactaremos a la brevedad.
+      </p>
+
+      <form id="quote-form">
+        <div class="field">
+          <label for="tipo-andamio">Tipo de andamio</label>
+          <select id="tipo-andamio" name="tipo_andamio" required>
+            <option value="">Selecciona una opción</option>
+            <option value="blitz">Andamios Blitz</option>
+            <option value="allround">Andamios Allround</option>
+          </select>
+        </div>
+
+        <div class="field" id="campo-blitz">
+          <label for="m2-blitz">Metros cuadrados de andamio (Blitz)</label>
+          <input type="number" id="m2-blitz" name="m2_blitz" min="20" max="5000" step="10" placeholder="Ej: 250" />
+        </div>
+
+        <div class="field" id="campo-allround">
+          <label for="kg-allround">Kilos de carga requeridos (Allround)</label>
+          <input type="number" id="kg-allround" name="kg_allround" min="500" max="50000" step="500" placeholder="Ej: 5000" />
+        </div>
+
+        <div class="field">
+          <label for="ciudad">Ciudad de la obra</label>
+          <input type="text" id="ciudad" name="ciudad" placeholder="Ej: Puente Alto, RM" required />
+        </div>
+
+        <div class="field">
+          <label for="direccion">Dirección de la obra</label>
+          <input type="text" id="direccion" name="direccion" placeholder="Calle, número, referencia" required />
+        </div>
+
+        <div class="field">
+          <label for="empresa">Nombre de la empresa</label>
+          <input type="text" id="empresa" name="empresa" placeholder="Razón social o nombre de la empresa" required />
+        </div>
+
+        <div class="field">
+          <label for="telefono">Número de contacto</label>
+          <input type="tel" id="telefono" name="telefono" placeholder="+56 9 1234 5678" required />
+        </div>
+
+        <div class="field">
+          <label for="correo">Correo de contacto</label>
+          <input type="email" id="correo" name="correo" placeholder="nombre@empresa.cl" required />
+        </div>
+
+        <div class="quote-actions">
+          <button type="button" class="btn-ghost" id="quote-cancelar">Cancelar</button>
+          <button type="submit" class="cta cta-cotizar">Enviar cotización</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- ========== FIN COTIZACIÓN RÁPIDA ========== -->
+
+  <!-- ===== FOOTER (IGUAL AL INDEX) ===== -->
+  <footer>
+    <div class="container">
+      <small>© <span id="year"></span> MPS — Montajes Profesionales & Soluciones. Todos los derechos reservados.</small>
+    </div>
+  </footer>
+
+  <!-- ===== WIDGET DE CONTACTO FLOTANTE (IGUAL AL INDEX) ===== -->
+  <div class="contact-panel" aria-hidden="true">
+    <div class="contact-panel-header">
+      <div class="contact-avatar">👷‍♂️</div>
+      <div>
+        <h3>Contáctanos</h3>
+        <p>Nuestro equipo está disponible para ayudarte.</p>
+      </div>
+      <button class="contact-close" aria-label="Cerrar contacto">×</button>
+    </div>
+
+    <div class="contact-panel-body">
+      <a class="contact-option"
+         href="https://wa.me/56912345678?text=Hola%20MPS,%20me%20gustaría%20cotizar%20un%20montaje%20de%20andamios."
+         target="_blank" rel="noopener">
+        <div class="contact-icon">🟢</div>
+        <div>
+          <strong>WhatsApp</strong>
+          <small>Habla directamente con nosotros por la app.</small>
+        </div>
+      </a>
+
+      <form id="widget-form" class="contact-form">
+        <div>
+          <label for="w-nombre">Nombre</label>
+          <input type="text" id="w-nombre" placeholder="Ej: Juan Pérez" autocomplete="name" required>
+        </div>
+
+        <div>
+          <label for="w-correo">Correo</label>
+          <input type="email" id="w-correo" placeholder="Ej: contacto@empresa.cl" autocomplete="email" required>
+        </div>
+
+        <div>
+          <label for="w-mensaje">Mensaje</label>
+          <textarea id="w-mensaje" rows="3" placeholder="Ej: Necesito cotizar andamios para una obra en Puente Alto" required></textarea>
+        </div>
+
+        <button type="submit" class="cta" style="margin-top:10px;">Enviar mensaje</button>
+        <p id="w-msg" class="tiny muted" style="margin-top:8px;"></p>
+      </form>
+    </div>
+  </div>
+
+  <button class="contact-toggle" aria-label="Abrir contacto">
+    <svg class="contact-icon-svg" viewBox="0 0 64 64" fill="none">
+      <path d="M18 24a14 14 0 0 1 28 0" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <rect x="15" y="26" width="6" height="12" rx="3" fill="white" />
+      <rect x="43" y="26" width="6" height="12" rx="3" fill="white" />
+      <path
+        d="M24 24 c0-4.5 3.5-8 8-8s8 3.5 8 8 v6 c0 4.5-3.5 8-8 8s-8-3.5-8-8 v-6z"
+        stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"
+      />
+      <path
+        d="M24.5 23 c1.2-2.2 3.1-3.5 5.5-3.5 c2.4 0 4.3 1.1 5.5 3.2"
+        stroke="white" stroke-width="2" stroke-linecap="round" fill="none"
+      />
+      <path d="M28 38v4" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <path d="M36 38v4" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <path
+        d="M18 52 c3.5-3.5 7.5-5 14-5s10.5 1.5 14 5"
+        stroke="white" stroke-width="3" stroke-linecap="round"
+      />
+      <path
+        d="M40 34 c0 3 2.4 5.4 5.4 5.4 h2.2"
+        stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+      />
+      <circle cx="48.5" cy="39.4" r="2" fill="white" />
+    </svg>
+  </button>
+
+  <!-- MISMO JS DEL INDEX -->
+  <script src="js/main.js"></script>
+</body>
+</html>
