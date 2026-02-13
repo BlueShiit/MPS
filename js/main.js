@@ -390,6 +390,7 @@ quoteForm?.addEventListener("submit", async (e) => {
     return;
   }
 
+  // 4) Guardar en Supabase (tabla quotes/cotizaciones)
   const res = await sendQuoteToSupabase({
     tipo_andamio,
     m2_blitz,
@@ -408,8 +409,30 @@ quoteForm?.addEventListener("submit", async (e) => {
     return;
   }
 
+  // 5) ✅ Registrar también en Netlify Forms (para Email notifications)
+  // Requiere que tu <form> tenga:
+  // name="cotizacion" data-netlify="true" method="POST"
+  // + <input type="hidden" name="form-name" value="cotizacion">
+  try {
+    const fd = new FormData(quoteForm);
+
+    // OJO: aquí aseguramos que el teléfono que se manda a Netlify sea el normalizado
+    fd.set("telefono", telefono);
+
+    await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(fd).toString(),
+    });
+  } catch (err) {
+    console.warn("Netlify Forms no pudo registrar el envío:", err);
+    // No lo bloqueamos porque Supabase ya guardó OK
+  }
+
+  // 6) UI
   alert("✅ Cotización enviada. Quedó registrada en la base de datos.");
   quoteForm.reset();
   actualizarCampos();
   cerrarCotizacion();
 });
+
