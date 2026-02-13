@@ -429,6 +429,27 @@ quoteForm?.addEventListener("submit", async (e) => {
     // No lo bloqueamos porque Supabase ya guardó OK
   }
 
+  // ✅ Enviar mail automático (admin + confirmación cliente)
+try {
+  await fetch("/.netlify/functions/send-mail", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      origen: "cotizacion",
+      tipo: tipo_andamio,
+      m2_blitz,
+      kg_allround,
+      ciudad,
+      direccion,
+      empresa,
+      telefono,
+      correo,
+    }),
+  });
+} catch (e) {
+  console.warn("No se pudo enviar correo automático:", e);
+}
+
   // 6) UI
   alert("✅ Cotización enviada. Quedó registrada en la base de datos.");
   quoteForm.reset();
