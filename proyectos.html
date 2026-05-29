@@ -1,18 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proyectos | MPS</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proyectos | MPS — Montajes Profesionales & Soluciones</title>
+  <meta name="description" content="Proyectos ejecutados por MPS en montaje, desmontaje y supervisión de andamios, con foco en seguridad, calidad y cumplimiento normativo." />
 
-  <header class="topbar">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!-- ===== TOPBAR ===== -->
+  <header class="topbar topbar--glass-strong">
     <div class="container wrap">
-      <a class="logo" href="index.html">MPS <span>Andamios</span></a>
-      <nav class="nav">
-        <a href="index.html#inicio">Inicio</a>
+      <a href="index.html" class="logo logo-svg">
+        <img src="assets/img/logo-mps-navbar.svg" alt="MPS Andamios">
+      </a>
+
+      <nav class="nav" aria-label="principal">
+        <a href="index.html">Inicio</a>
         <a href="index.html#nosotros">Nosotros</a>
         <a href="servicios.html">Servicios</a>
         <a href="proyectos.html">Proyectos</a>
@@ -21,37 +30,333 @@
   </header>
 
   <main>
-    <section class="section">
+
+    <!-- ===== ENCABEZADO PROYECTOS ===== -->
+    <section class="section" aria-labelledby="proyectos-title">
+      <div class="container" style="text-align:center;">
+        <h1 id="proyectos-title" style="margin:0; font-size:clamp(32px,4vw,54px); color:#ffb703;">
+          Proyectos
+        </h1>
+
+        <p class="lead" style="margin:14px auto 0; max-width:75ch;">
+          Revisa algunos de los trabajos desarrollados por <strong>MPS</strong> en montaje, desmontaje
+          y supervisión de andamios, ejecutados con foco en seguridad, planificación y cumplimiento en obra.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== LISTADO DE PROYECTOS ===== -->
+    <section class="section" aria-label="Listado de proyectos">
       <div class="container">
-        <h2>Proyectos</h2>
-        <p class="lead">Galería y resumen de proyectos ejecutados por MPS.</p>
+        <div class="projects-grid">
 
-        <div class="grid2">
-          <div class="card">
-            <h3>Proyecto 1</h3>
-            <p>Descripción breve (ubicación, alcance, fecha, cliente si aplica).</p>
-          </div>
+          <!-- PROYECTO 1 -->
+          <article class="project-card">
+            <div class="project-gallery">
+              <button class="gallery-btn prev" type="button" aria-label="Imagen anterior">‹</button>
 
-          <div class="card">
-            <h3>Proyecto 2</h3>
-            <p>Descripción breve del proyecto.</p>
-          </div>
+              <div class="gallery-track">
+                <img src="assets/img/hero1.jpg" class="gallery-image active" alt="Montaje de andamios industriales - foto 1">
+                <img src="assets/img/hero2.jpg" class="gallery-image" alt="Montaje de andamios industriales - foto 2">
+                <img src="assets/img/hero3.jpg" class="gallery-image" alt="Montaje de andamios industriales - foto 3">
+              </div>
 
-          <div class="card">
-            <h3>Proyecto 3</h3>
-            <p>Descripción breve del proyecto.</p>
-          </div>
+              <button class="gallery-btn next" type="button" aria-label="Imagen siguiente">›</button>
+            </div>
+
+            <div class="project-body">
+              <p class="project-tag">Proyecto</p>
+
+              <h2 class="project-title">
+                Montaje de andamios industriales
+              </h2>
+
+              <p class="project-brief">
+                Proyecto orientado a habilitar zonas de trabajo en altura con una solución segura, ordenada y coordinada según los requerimientos de obra.
+              </p>
+
+              <div class="project-meta">
+                <span class="project-chip">Ubicación: Puente Alto, RM</span>
+                <span class="project-chip">Servicio: Montaje</span>
+              </div>
+
+              <p class="project-text">
+                Se ejecutó el montaje de andamios con planificación previa, coordinación en terreno y control de condiciones críticas, asegurando continuidad operativa y cumplimiento de estándares de seguridad.
+              </p>
+
+              <div class="project-actions">
+                <a href="#" class="cta cta-cotizar" onclick="abrirCotizacion(); return false;">
+                  Cotizar un proyecto similar
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTO 2 -->
+          <article class="project-card">
+            <div class="project-gallery">
+              <button class="gallery-btn prev" type="button" aria-label="Imagen anterior">‹</button>
+
+              <div class="gallery-track">
+                <img src="assets/img/montaje.jpg" class="gallery-image active" alt="Desmontaje y reorganización de frente de trabajo - foto 1">
+                <img src="assets/img/hero1.jpg" class="gallery-image" alt="Desmontaje y reorganización de frente de trabajo - foto 2">
+                <img src="assets/img/hero2.jpg" class="gallery-image" alt="Desmontaje y reorganización de frente de trabajo - foto 3">
+              </div>
+
+              <button class="gallery-btn next" type="button" aria-label="Imagen siguiente">›</button>
+            </div>
+
+            <div class="project-body">
+              <p class="project-tag">Proyecto</p>
+
+              <h2 class="project-title">
+                Desmontaje y reorganización de frente de trabajo
+              </h2>
+
+              <p class="project-brief">
+                Intervención enfocada en desmontaje controlado, orden de componentes y continuidad segura de las operaciones en terreno.
+              </p>
+
+              <div class="project-meta">
+                <span class="project-chip">Ubicación: Región Metropolitana</span>
+                <span class="project-chip">Servicio: Desmontaje</span>
+              </div>
+
+              <p class="project-text">
+                El proyecto contempló desmontaje por etapas, coordinación con equipos de obra y control de riesgos en zonas activas para mantener continuidad operativa.
+              </p>
+
+              <div class="project-actions">
+                <a href="#" class="cta cta-cotizar" onclick="abrirCotizacion(); return false;">
+                  Cotizar un proyecto similar
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- PROYECTO 3 -->
+          <article class="project-card">
+            <div class="project-gallery">
+              <button class="gallery-btn prev" type="button" aria-label="Imagen anterior">‹</button>
+
+              <div class="gallery-track">
+                <img src="assets/img/supervision.jpg" class="gallery-image active" alt="Supervisión y control documental en obra - foto 1">
+                <img src="assets/img/hero1.jpg" class="gallery-image" alt="Supervisión y control documental en obra - foto 2">
+                <img src="assets/img/hero3.jpg" class="gallery-image" alt="Supervisión y control documental en obra - foto 3">
+              </div>
+
+              <button class="gallery-btn next" type="button" aria-label="Imagen siguiente">›</button>
+            </div>
+
+            <div class="project-body">
+              <p class="project-tag">Proyecto</p>
+
+              <h2 class="project-title">
+                Supervisión y control documental en obra
+              </h2>
+
+              <p class="project-brief">
+                Proyecto centrado en supervisión en terreno, control de cumplimiento y apoyo documental para faenas relacionadas con andamios.
+              </p>
+
+              <div class="project-meta">
+                <span class="project-chip">Ubicación: Santiago</span>
+                <span class="project-chip">Servicio: Supervisión</span>
+              </div>
+
+              <p class="project-text">
+                MPS apoyó la verificación de condiciones de trabajo, aplicación de procedimientos y control visual de seguridad para facilitar la toma de decisiones en obra.
+              </p>
+
+              <div class="project-actions">
+                <a href="#" class="cta cta-cotizar" onclick="abrirCotizacion(); return false;">
+                  Cotizar un proyecto similar
+                </a>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
+
   </main>
 
+  <!-- ========== COTIZACIÓN RÁPIDA ========== -->
+  <div class="quote-modal" id="quote-modal" aria-hidden="true">
+    <div class="quote-backdrop" id="quote-backdrop"></div>
+
+    <div class="quote-card" role="dialog" aria-modal="true" aria-labelledby="quote-title">
+      <button class="quote-close" type="button" aria-label="Cerrar cotización">&times;</button>
+
+      <h2 id="quote-title">Cotización rápida</h2>
+      <p class="muted tiny">
+        Selecciona el tipo de andamio y completa los datos de tu obra. Te contactaremos a la brevedad.
+      </p>
+
+      <form
+        id="quote-form"
+        name="cotizacion"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="cotizacion">
+
+        <p hidden>
+          <label>
+            Don’t fill this out: <input name="bot-field">
+          </label>
+        </p>
+
+        <div class="field">
+          <label for="tipo-andamio">Tipo de andamio</label>
+          <select id="tipo-andamio" name="tipo_andamio" required>
+            <option value="">Selecciona una opción</option>
+            <option value="blitz">Andamios Blitz</option>
+            <option value="allround">Andamios Allround</option>
+          </select>
+        </div>
+
+        <div class="field" id="campo-blitz">
+          <label for="m2-blitz">Metros cuadrados de andamio (Blitz)</label>
+          <input type="number" id="m2-blitz" name="m2_blitz" min="20" max="5000" step="10" placeholder="Ej: 250" />
+        </div>
+
+        <div class="field" id="campo-allround">
+          <label for="kg-allround">Kilos de carga requeridos (Allround)</label>
+          <input type="number" id="kg-allround" name="kg_allround" min="500" max="50000" step="500" placeholder="Ej: 5000" />
+        </div>
+
+        <div class="field">
+          <label for="ciudad">Ciudad de la obra</label>
+          <input type="text" id="ciudad" name="ciudad" placeholder="Ej: Puente Alto, RM" required />
+        </div>
+
+        <div class="field">
+          <label for="direccion">Dirección de la obra</label>
+          <input type="text" id="direccion" name="direccion" placeholder="Calle, número, referencia" required />
+        </div>
+
+        <div class="field">
+          <label for="empresa">Nombre de la empresa</label>
+          <input type="text" id="empresa" name="empresa" placeholder="Razón social o nombre de la empresa" required />
+        </div>
+
+        <div class="field">
+          <label for="telefono">Número de contacto</label>
+          <input
+            type="tel"
+            id="telefono"
+            name="telefono"
+            placeholder="+56 9 1234 5678"
+            inputmode="numeric"
+            pattern="[0-9+ ]*"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="correo">Correo de contacto</label>
+          <input type="email" id="correo" name="correo" placeholder="nombre@empresa.cl" required />
+        </div>
+
+        <div class="quote-actions">
+          <button type="button" class="btn-ghost" id="quote-cancelar">Cancelar</button>
+          <button type="submit" class="cta cta-cotizar">Enviar cotización</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
   <footer>
     <div class="container">
-      <p class="muted tiny">© <span id="year"></span> MPS. Todos los derechos reservados.</p>
+      <small>© <span id="year"></span> MPS — Montajes Profesionales & Soluciones. Todos los derechos reservados.</small>
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <!-- ===== WIDGET DE CONTACTO ===== -->
+  <div class="contact-panel" aria-hidden="true">
+    <div class="contact-panel-header">
+      <div class="contact-avatar">👷‍♂️</div>
+      <div>
+        <h3>Contáctanos</h3>
+        <p>Nuestro equipo está disponible para ayudarte.</p>
+      </div>
+      <button class="contact-close" aria-label="Cerrar contacto">×</button>
+    </div>
+
+    <div class="contact-panel-body">
+      <a class="contact-option"
+         href="https://wa.me/56954138616?text=Hola%20MPS,%20me%20gustaría%20cotizar%20un%20montaje%20de%20andamios."
+         target="_blank" rel="noopener">
+        <div class="contact-icon">🟢</div>
+        <div>
+          <strong>WhatsApp</strong>
+          <small>Habla directamente con nosotros por la app.</small>
+        </div>
+      </a>
+
+      <form id="widget-form" class="contact-form">
+        <div>
+          <label for="w-nombre">Nombre</label>
+          <input type="text" id="w-nombre" placeholder="Ej: Juan Pérez" autocomplete="name" required>
+        </div>
+
+        <div>
+          <label for="w-correo">Correo</label>
+          <input type="email" id="w-correo" placeholder="Ej: contacto@empresa.cl" autocomplete="email" required>
+        </div>
+
+        <div>
+          <label for="w-mensaje">Mensaje</label>
+          <textarea id="w-mensaje" rows="3" placeholder="Ej: Necesito cotizar andamios para una obra en Puente Alto" required></textarea>
+        </div>
+
+        <button type="submit" class="cta" style="margin-top:10px;">Enviar mensaje</button>
+        <p id="w-msg" class="tiny muted" style="margin-top:8px;"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== BOTÓN FLOTANTE ===== -->
+  <button class="contact-toggle" aria-label="Abrir contacto">
+    <svg class="contact-icon-svg" viewBox="0 0 64 64" fill="none">
+      <path d="M18 24a14 14 0 0 1 28 0" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <rect x="15" y="26" width="6" height="12" rx="3" fill="white" />
+      <rect x="43" y="26" width="6" height="12" rx="3" fill="white" />
+      <path
+        d="M24 24 c0-4.5 3.5-8 8-8s8 3.5 8 8 v6 c0 4.5-3.5 8-8 8s-8-3.5-8-8 v-6z"
+        stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"
+      />
+      <path
+        d="M24.5 23 c1.2-2.2 3.1-3.5 5.5-3.5 c2.4 0 4.3 1.1 5.5 3.2"
+        stroke="white" stroke-width="2" stroke-linecap="round" fill="none"
+      />
+      <path d="M28 38v4" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <path d="M36 38v4" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <path
+        d="M18 52 c3.5-3.5 7.5-5 14-5s10.5 1.5 14 5"
+        stroke="white" stroke-width="3" stroke-linecap="round"
+      />
+      <path
+        d="M40 34 c0 3 2.4 5.4 5.4 5.4 h2.2"
+        stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+      />
+      <circle cx="48.5" cy="39.4" r="2" fill="white" />
+    </svg>
+  </button>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-btn lightbox-prev" id="lightbox-prev" type="button" aria-label="Imagen anterior">‹</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Imagen ampliada">
+    <button class="lightbox-btn lightbox-next" id="lightbox-next" type="button" aria-label="Imagen siguiente">›</button>
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Cerrar">×</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

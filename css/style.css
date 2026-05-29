@@ -1057,25 +1057,49 @@ form textarea:focus{
   scroll-margin-top: 90px; /* evita que el sticky tape el título al navegar */
 }
 
-/* ===== EXPLORAR — borde glass + brillo ===== */
-/* ===== EXPLORAR — Capas correctas (para que se note el glass) ===== */
 .explore-card{
   position: relative;
-  border: 1px solid rgba(255,255,255,0.16);
+  display: block;
+  height: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+
+  border: 1px solid rgba(255,255,255,0.18);
+  background: #fff;
+
   box-shadow:
-    0 18px 40px rgba(15,23,42,0.22),
+    0 18px 40px rgba(15,23,42,0.18),
     inset 0 1px 0 rgba(255,255,255,0.18);
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease,
+    border-color .3s ease;
 }
 
 /* imagen al fondo */
 .explore-card img{
   position: relative;
   z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .45s ease;
 }
 
 /* capa oscura */
 .explore-card::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.62),
+    rgba(0,0,0,0.18)
+  );
   z-index: 1;
+  transition: background .3s ease;
 }
 
 /* brillo superior tipo glass */
@@ -1094,16 +1118,81 @@ form textarea:focus{
   z-index: 2;
 }
 
-/* texto y flecha por encima */
-.explore-card span,
-.explore-card .arrow{
+/* texto principal */
+.explore-card span{
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
   z-index: 3;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+}
+
+/* flecha */
+.explore-card .arrow{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  z-index: 3;
+
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+
+  background: rgba(0,0,0,0.42);
+  color: #fff;
+  font-size: 22px;
+
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity .25s ease,
+    transform .25s ease,
+    background .25s ease;
+}
+
+/* hover */
+.explore-card:hover{
+  transform: translateY(-6px);
+  box-shadow:
+    0 24px 55px rgba(15,23,42,0.24),
+    inset 0 1px 0 rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.28);
+}
+
+.explore-card:hover img{
+  transform: scale(1.06);
+}
+
+.explore-card:hover::after{
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.72),
+    rgba(0,0,0,0.16)
+  );
+}
+
+.explore-card:hover .arrow{
+  opacity: 1;
+  transform: translateX(0);
+  background: rgba(0,0,0,0.62);
 }
 
 /* ===== EXPLORAR — Encabezado de sección ===== */
 
 .explore-section{
-  padding-top: 90px;   /* más aire arriba */
+  background: linear-gradient(
+    to bottom,
+    #e9eef4 0%,
+    #dce4ec 100%
+  );
+
+  padding: 100px 0;
 }
 
 .explore-title{
@@ -1140,179 +1229,355 @@ form textarea:focus{
   backdrop-filter: blur(2px);
 }
 
-/* ===== EXPLORE — Glass Panel ===== */
-/* ===== EXPLORAR — Panel glass sutil tipo “Por qué MPS” ===== */
-/* ===== EXPLORAR — Panel glass más sutil (halo en bordes + glow esquina) ===== */
-/* ===== EXPLORAR — Panel Glass Interactivo ===== */
 
-.explore-panel{
+/* ===== PROYECTOS (proyectos.html) ===== */
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:30px;
+  max-width:1200px;
+  margin:auto;
+}
+
+@media (max-width: 900px){
+  .projects-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.project-card{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  background:#fff;
+  border:1px solid var(--borde);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(15,23,42,0.08);
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.project-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 45px rgba(15,23,42,0.14);
+  border-color:rgba(10,102,194,0.16);
+}
+
+.project-media{
+  height:260px;
+  background:#e5e7eb;
+}
+
+.project-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.project-body{
+  padding:18px 18px 20px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+
+.project-tag{
+  display:inline-block;
+  width:fit-content;
+  align-self:flex-start;
+  padding:3px 10px;
+  background:#FFB703;
+  color:#111;
+  border-radius:999px;
+  font-weight:700;
+  font-size:12px;
+  line-height:1.2;
+  margin:0 0 12px;
+}
+
+.project-title{
+  margin:0 0 10px;
+  font-size:22px;
+  color:#0f172a;
+}
+
+.project-subtitle{
+  margin:0 0 14px;
+  color:#334155;
+  line-height:1.6;
+}
+
+.project-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:0 0 16px;
+}
+
+.project-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border:1px solid var(--borde);
+  border-radius:12px;
+  background:#f8fafc;
+  color:#334155;
+  font-size:13px;
+  font-weight:600;
+}
+
+.project-body p:not(.project-tag):not(.project-subtitle){
+  color:#334155;
+  line-height:1.65;
+}
+
+.project-actions{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:auto;
+}
+
+.project-gallery{
+  position:relative;
+  height:300px;
+  overflow:hidden;
+  border-top-left-radius:18px;
+  border-top-right-radius:18px;
+  background:#e5e7eb;
+}
+
+.project-gallery-track{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+
+.project-gallery-image{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s ease, transform .35s ease;
+  cursor:pointer;
+}
+
+.project-gallery-image.is-active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.project-gallery-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:2;
+  width:42px;
+  height:42px;
+  border:none;
+  border-radius:999px;
+  background:rgba(15,23,42,.55);
+  color:#fff;
+  font-size:26px;
+  line-height:1;
+  cursor:pointer;
+  transition:background .2s ease, transform .2s ease;
+}
+
+.project-gallery-btn:hover{
+  background:rgba(15,23,42,.8);
+}
+
+.project-gallery-btn.prev{
+  left:14px;
+}
+
+.project-gallery-btn.next{
+  right:14px;
+}
+
+.project-gallery-dots{
+  position:absolute;
+  left:50%;
+  bottom:14px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:8px;
+  z-index:2;
+}
+
+.project-gallery-dots button{
+  width:10px;
+  height:10px;
+  border:none;
+  border-radius:999px;
+  background:rgba(255,255,255,.45);
+  cursor:pointer;
+}
+
+.project-gallery-dots button.is-active{
+  background:#fff;
+}
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.88);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  padding:30px;
+}
+
+.lightbox.active{
+  display:flex;
+}
+
+.lightbox-img{
+  max-width:92%;
+  max-height:88vh;
+  border-radius:18px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.35);
+}
+
+.lightbox-close{
+  position:absolute;
+  top:22px;
+  right:28px;
+  width:46px;
+  height:46px;
+  border:none;
+  border-radius:50%;
+  background:rgba(255,255,255,0.14);
+  color:#fff;
+  font-size:34px;
+  line-height:1;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.lightbox-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:1001;
+  width:54px;
+  height:54px;
+  border:none;
+  border-radius:50%;
+  background:rgba(255,255,255,0.14);
+  color:#fff;
+  font-size:34px;
+  line-height:1;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s ease;
+}
+
+.lightbox-btn:hover,
+.lightbox-close:hover{
+  background:rgba(255,255,255,0.24);
+}
+
+.lightbox-prev{
+  left:26px;
+}
+
+.lightbox-next{
+  right:26px;
+}
+
+.project-gallery{
+position:relative;
+height:300px;
+overflow:hidden;
+border-top-left-radius:18px;
+border-top-right-radius:18px;
+}
+
+.gallery-track{
+width:100%;
+height:100%;
+position:relative;
+}
+
+.gallery-image{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+transition:opacity .3s ease;
+}
+
+.gallery-image.active{
+opacity:1;
+}
+
+.gallery-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:3;
+  background:rgba(0,0,0,0.45);
+  border:none;
+  color:#fff;
+  font-size:34px;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .25s ease, transform .25s ease;
+}
+
+.gallery-btn:hover{
+  background:rgba(0,0,0,0.7);
+}
+
+.gallery-btn.prev{
+  left:18px;
+}
+
+.gallery-btn.next{
+  right:18px;
+}
+
+.explore-section{
+  background: linear-gradient(
+    to bottom,
+    #e9eef4 0%,
+    #dce4ec 100%
+  );
+  
+  padding: 80px 0;
   position: relative;
-  overflow: hidden;
-  border-radius: 22px;
-  padding: 48px 40px 56px;
 
-  /* glass base */
-  background: rgba(255,255,255,0.30);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-
-  /* borde y sombra */
-  border: 1px solid rgba(15,23,42,0.10);
-  box-shadow:
-    0 18px 45px rgba(15,23,42,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.40);
-
-  /* halo sutil externo */
-  outline: 10px solid rgba(10,102,194,0.03);
-  outline-offset: -10px;
-
-  /* animación */
-  transition:
-    transform .35s ease,
-    box-shadow .35s ease,
-    background .35s ease;
+  border-top: 1px solid rgba(15,23,42,0.05);
+  border-bottom: 1px solid rgba(15,23,42,0.05);
 }
 
-/* elimina cualquier before viejo */
-.explore-panel::before{
-  content: none !important;
-}
-
-/* glow azul desde esquina superior izquierda */
-.explore-panel::after{
+.explore-section::before{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
-
   background: radial-gradient(
-    140% 140% at 0% 0%,
-    rgba(10,102,194,0.38) 0%,
-    rgba(10,102,194,0.00) 65%
+    120% 120% at 50% 0%,
+    rgba(255,255,255,0.18) 0%,
+    rgba(255,255,255,0) 60%
   );
-
-  opacity: 0.60;
-  transition: opacity .35s ease, transform .35s ease;
 }
-
-/* contenido por encima del glow */
-/* ===== EXPLORAR — Panel Glass Interactivo (borde difuminado + glow esquina) ===== */
-
-.explore-panel{
-  position: relative;
-  overflow: hidden;
-  border-radius: 22px;
-  padding: 48px 40px 56px;
-
-  /* glass base */
-  background: rgba(255,255,255,0.30);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-
-  /* borde y sombra */
-  border: 1px solid rgba(15,23,42,0.10);
-  box-shadow:
-    0 18px 45px rgba(15,23,42,0.10),
-    inset 0 1px 0 rgba(255,255,255,0.40);
-
-  /* animación */
-  transition:
-    transform .35s ease,
-    box-shadow .35s ease,
-    background .35s ease,
-    border-color .35s ease;
-}
-
-/* HALO / CONTORNO DIFUMINADO (similar a “Por qué MPS”) */
-.explore-panel::before{
-  content:"";
-  position:absolute;
-  inset:-18px;                 /* hace que el halo “respire” hacia afuera */
-  border-radius: inherit;
-  pointer-events:none;
-
-  /* borde difuminado tipo navbar (vignette suave en el perímetro) */
-  background:
-    radial-gradient(120% 120% at 0% 0%,
-      rgba(10,102,194,0.22) 0%,
-      rgba(10,102,194,0.00) 55%
-    ),
-    radial-gradient(120% 120% at 100% 100%,
-      rgba(0,0,0,0.10) 0%,
-      rgba(0,0,0,0.00) 60%
-    );
-
-  opacity: 0.55;
-  filter: blur(10px);
-  transition: opacity .35s ease, transform .35s ease;
-}
-
-/* glow azul desde esquina superior izquierda (luz interna) */
-.explore-panel::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-
-  background: radial-gradient(
-    140% 140% at 0% 0%,
-    rgba(10,102,194,0.34) 0%,
-    rgba(10,102,194,0.00) 65%
-  );
-
-  opacity: 0.55;
-  transition: opacity .35s ease, transform .35s ease;
-}
-
-/* contenido por encima de capas */
-.explore-panel > *{
-  position: relative;
-  z-index: 1;
-}
-
-/* ===== HOVER — resaltar TODO (contenido + halo + glow) ===== */
-.explore-panel:hover{
-  transform: translateY(-4px);
-  background: rgba(255,255,255,0.36);
-  border-color: rgba(10,102,194,0.18);
-
-  box-shadow:
-    0 30px 75px rgba(15,23,42,0.18),
-    inset 0 1px 0 rgba(255,255,255,0.55);
-}
-
-/* halo exterior más notorio */
-.explore-panel:hover::before{
-  opacity: 0.95;
-  transform: scale(1.02);
-}
-
-/* glow interno más notorio */
-.explore-panel:hover::after{
-  opacity: 0.90;
-  transform: scale(1.05);
-}
-
-/* texto más presente */
-.explore-panel:hover .explore-title{ color:#0f172a; }
-.explore-panel:hover .explore-lead{ color:#334155; }
-
-/* divisor más visible */
-.explore-panel:hover .explore-divider{
-  opacity: 0.90;
-  transform: scaleX(1.06);
-}
-
-/* transiciones suaves internas */
-.explore-title,
-.explore-lead,
-.explore-divider{
-  transition: color .3s ease, opacity .3s ease, transform .3s ease;
-}
-
-
-
-
-
-
-

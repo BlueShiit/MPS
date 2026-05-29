@@ -457,3 +457,118 @@ try {
   cerrarCotizacion();
 });
 
+// ============================
+// Slider de proyectos + lightbox
+// ============================
+(function initProjectGallery() {
+  const galleries = document.querySelectorAll(".project-gallery");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxClose = document.getElementById("lightbox-close");
+  const lightboxPrev = document.getElementById("lightbox-prev");
+  const lightboxNext = document.getElementById("lightbox-next");
+
+  let currentGalleryImages = [];
+  let currentLightboxIndex = 0;
+
+  function updateLightboxImage() {
+    if (!lightboxImg || !currentGalleryImages.length) return;
+
+    const currentImg = currentGalleryImages[currentLightboxIndex];
+    if (!currentImg) return;
+
+    lightboxImg.src = currentImg.src;
+    lightboxImg.alt = currentImg.alt || "Imagen ampliada";
+  }
+
+  function openLightbox(images, index) {
+    if (!lightbox) return;
+
+    currentGalleryImages = images;
+    currentLightboxIndex = index >= 0 ? index : 0;
+
+    updateLightboxImage();
+    lightbox.classList.add("active");
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove("active");
+  }
+
+  function showNextLightboxImage() {
+    if (!currentGalleryImages.length) return;
+
+    currentLightboxIndex =
+      (currentLightboxIndex + 1) % currentGalleryImages.length;
+
+    updateLightboxImage();
+  }
+
+  function showPrevLightboxImage() {
+    if (!currentGalleryImages.length) return;
+
+    currentLightboxIndex =
+      (currentLightboxIndex - 1 + currentGalleryImages.length) %
+      currentGalleryImages.length;
+
+    updateLightboxImage();
+  }
+
+  galleries.forEach((gallery) => {
+    const images = Array.from(gallery.querySelectorAll(".gallery-image"));
+    const next = gallery.querySelector(".next");
+    const prev = gallery.querySelector(".prev");
+
+    if (!images.length) return;
+
+    let index = images.findIndex((img) => img.classList.contains("active"));
+    if (index < 0) index = 0;
+
+    function show(i) {
+      images.forEach((img) => img.classList.remove("active"));
+      images[i].classList.add("active");
+      index = i;
+    }
+
+    next?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const newIndex = (index + 1) % images.length;
+      show(newIndex);
+    });
+
+    prev?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const newIndex = (index - 1 + images.length) % images.length;
+      show(newIndex);
+    });
+
+    images.forEach((img) => {
+      img.addEventListener("click", () => {
+        const activeIndex = images.findIndex((image) =>
+          image.classList.contains("active")
+        );
+
+        openLightbox(images, activeIndex >= 0 ? activeIndex : 0);
+      });
+    });
+
+    show(index);
+  });
+
+  lightboxClose?.addEventListener("click", closeLightbox);
+  lightboxNext?.addEventListener("click", showNextLightboxImage);
+  lightboxPrev?.addEventListener("click", showPrevLightboxImage);
+
+  lightbox?.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox?.classList.contains("active")) return;
+
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") showNextLightboxImage();
+    if (e.key === "ArrowLeft") showPrevLightboxImage();
+  });
+})();
