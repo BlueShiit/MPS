@@ -722,27 +722,35 @@ quoteForm?.addEventListener("submit", async (e) => {
   const cantidad = tipo_andamio === "blitz" ? m2_blitz : kg_allround;
   const precio = calcularPrecio(tipo_andamio, cantidad);
 
-  // 5) Guardar en Supabase (tabla quotes/cotizaciones)
-  const res = await sendQuoteToSupabase({
-    tipo_andamio,
-    m2_blitz,
-    kg_allround,
-    ciudad,
-    direccion,
-    empresa,
-    telefono,
-    correo,
+  // 5) Guardar en Supabase — intenta con precio, si falla reintenta sin él
+  const payloadBase = {
+    tipo_andamio, m2_blitz, kg_allround,
+    ciudad, direccion, empresa, telefono, correo,
+    created_at: new Date().toISOString(),
+  };
+
+  const payloadConPrecio = {
+    ...payloadBase,
     precio_unitario: precio?.precioUnitario ?? null,
     precio_neto:     precio?.neto ?? null,
     precio_iva:      precio?.iva ?? null,
     precio_total:    precio?.total ?? null,
-    created_at: new Date().toISOString(),
-  });
+  };
+
+  let res = await sendQuoteToSupabase(payloadConPrecio);
 
   if (!res.ok) {
-    console.error("Supabase cotizaciones:", res.error);
-    alert("❌ No se pudo enviar la cotización. Revisa la consola (F12).");
-    return;
+    // Si el error es por columnas inexistentes, reintenta sin precio
+    const esMissingColumn = res.error?.includes("column") || res.error?.includes("does not exist");
+    if (esMissingColumn) {
+      console.warn("Columnas de precio no existen en Supabase, guardando sin precio.");
+      res = await sendQuoteToSupabase(payloadBase);
+    }
+    if (!res.ok) {
+      console.error("Supabase cotizaciones:", res.error);
+      alert("❌ No se pudo enviar la cotización. Revisa la consola (F12).");
+      return;
+    }
   }
 
   // 5) ✅ Registrar también en Netlify Forms (para Email notifications)
