@@ -38,6 +38,19 @@ async function sendQuoteToSupabase(payload) {
 // ============================
 // 1) Año dinámico en el footer
 // ============================
+// Auto-abrir modal de cotización si la URL tiene ?cotizar=1
+if (new URLSearchParams(window.location.search).get("cotizar") === "1") {
+  window.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("quote-modal");
+    if (modal) {
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      history.replaceState(null, "", window.location.pathname);
+    }
+  });
+}
+
+
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -159,6 +172,240 @@ document.addEventListener("click", (e) => {
 
   updateUI();
   startAutoplay();
+})();
+
+// ============================
+// Form helpers: autocomplete + validación inline
+// ============================
+(function initFormHelpers() {
+  const form = document.getElementById("quote-form");
+  if (!form) return;
+
+  // --- Indicador de estado (borde + hint) ---
+  function getHint(field) {
+    let h = field.querySelector(".field-hint");
+    if (!h) { h = document.createElement("small"); h.className = "field-hint"; field.appendChild(h); }
+    return h;
+  }
+
+  function setStatus(input, state, msg) {
+    const field = input.closest(".field");
+    if (!field) return;
+    field.classList.remove("field--valid", "field--invalid");
+    if (state === "valid")   field.classList.add("field--valid");
+    if (state === "invalid") field.classList.add("field--invalid");
+    const hint = getHint(field);
+    hint.textContent = msg || "";
+    hint.className = "field-hint" + (state === "invalid" ? " field-hint--error" : state === "valid" ? " field-hint--ok" : "");
+  }
+
+  // --- Lista de ciudades y comunas de Chile ---
+  const CIUDADES_CL = [
+    "Santiago","Puente Alto","Maipú","La Florida","Las Condes","Ñuñoa",
+    "Providencia","Vitacura","Lo Barnechea","Peñalolén","San Miguel","San Bernardo",
+    "Quilicura","La Reina","Macul","Pudahuel","Conchalí","Huechuraba","Recoleta",
+    "Independencia","Cerro Navia","Lo Espejo","Lo Prado","Renca","Cerrillos",
+    "Estación Central","El Bosque","La Granja","La Pintana","La Cisterna",
+    "San Joaquín","Pedro Aguirre Cerda","Colina","Buin","Melipilla","Talagante",
+    "Padre Hurtado","Antofagasta","Calama","Viña del Mar","Valparaíso","San Antonio",
+    "Temuco","Concepción","Talcahuano","La Serena","Coquimbo","Iquique",
+    "Puerto Montt","Talca","Rancagua","Osorno","Punta Arenas","Arica","Chillán",
+    "Los Ángeles","Valdivia","Copiapó","Ovalle","Curicó","Linares","San Fernando","Angol",
+  ];
+
+  // --- Autocomplete de dirección con Nominatim (Chile) ---
+  const inputDir    = document.getElementById("direccion");
+  const inputCiudad = document.getElementById("ciudad");
+
+  if (inputDir) {
+    inputDir.setAttribute("autocomplete", "off");
+    const field = inputDir.closest(".field");
+
+    const list = document.createElement("ul");
+    list.className = "ac-list";
+    list.hidden = true;
+    field.appendChild(list);
+
+    let timer;
+
+    inputDir.addEventListener("input", () => {
+      setStatus(inputDir, null);
+      clearTimeout(timer);
+      const q = inputDir.value.trim();
+      if (q.length < 5) { list.innerHTML = ""; list.hidden = true; return; }
+
+      list.innerHTML = '<li class="ac-item ac-loading">Buscando…</li>';
+      list.hidden = false;
+
+      timer = setTimeout(async () => {
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&countrycodes=cl&addressdetails=1&limit=6&q=${encodeURIComponent(q + ", Chile")}`,
+            { headers: { "Accept-Language": "es-CL,es" } }
+          );
+          const data = await res.json();
+          list.innerHTML = "";
+          if (!data.length) {
+            list.innerHTML = '<li class="ac-item ac-empty">Sin resultados en Chile</li>';
+            return;
+          }
+          data.forEach(item => {
+            const a = item.address || {};
+            const street = [a.road, a.house_number].filter(Boolean).join(" ");
+            const city   = a.city || a.town || a.village || a.municipality || a.county || "";
+            const region = a.state || "";
+            const label  = street || item.display_name.split(",")[0].trim();
+            const li = document.createElement("li");
+            li.className = "ac-item";
+            li.innerHTML = `<span class="ac-main">${label}</span><span class="ac-sub">${[city, region].filter(Boolean).join(", ")}</span>`;
+            li.addEventListener("mousedown", e => {
+              e.preventDefault();
+              inputDir.value = label;
+              if (inputCiudad && city) { inputCiudad.value = city; setStatus(inputCiudad, "valid", ""); }
+              setStatus(inputDir, "valid", "");
+              list.hidden = true;
+            });
+            list.appendChild(li);
+          });
+          list.hidden = false;
+        } catch { list.hidden = true; }
+      }, 450);
+    });
+
+    inputDir.addEventListener("blur",    () => setTimeout(() => { list.hidden = true; }, 200));
+    inputDir.addEventListener("keydown", e => { if (e.key === "Escape") list.hidden = true; });
+  }
+
+  // --- Autocomplete custom de ciudad ---
+  if (inputCiudad) {
+    inputCiudad.setAttribute("autocomplete", "off");
+    const fieldC = inputCiudad.closest(".field");
+
+    const listC = document.createElement("ul");
+    listC.className = "ac-list";
+    listC.hidden = true;
+    fieldC.appendChild(listC);
+
+    function renderCiudades(q) {
+      const matches = CIUDADES_CL.filter(c =>
+        c.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
+          .includes(q.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""))
+      ).slice(0, 8);
+
+      listC.innerHTML = "";
+      if (!matches.length) { listC.hidden = true; return; }
+
+      matches.forEach(ciudad => {
+        const li = document.createElement("li");
+        li.className = "ac-item";
+        li.innerHTML = `<span class="ac-main">${ciudad}</span>`;
+        li.addEventListener("mousedown", e => {
+          e.preventDefault();
+          inputCiudad.value = ciudad;
+          setStatus(inputCiudad, "valid", "");
+          listC.hidden = true;
+        });
+        listC.appendChild(li);
+      });
+      listC.hidden = false;
+    }
+
+    inputCiudad.addEventListener("input", () => {
+      const q = inputCiudad.value.trim();
+      if (q.length < 2) { listC.innerHTML = ""; listC.hidden = true; return; }
+      renderCiudades(q);
+    });
+
+    inputCiudad.addEventListener("blur",    () => setTimeout(() => { listC.hidden = true; }, 200));
+    inputCiudad.addEventListener("keydown", e => { if (e.key === "Escape") listC.hidden = true; });
+  }
+
+  // --- Teléfono con prefijo ---
+  const inputTel    = document.getElementById("telefono");
+  const inputPrefijo = document.getElementById("telefono-prefijo");
+  if (inputTel) {
+    const PHONE_EXAMPLES = {
+      "+56":  "9 1234 5678",
+      "+54":  "11 1234 5678",
+      "+591": "7 123 4567",
+      "+55":  "11 91234 5678",
+      "+57":  "300 123 4567",
+      "+593": "99 123 4567",
+      "+52":  "55 1234 5678",
+      "+51":  "9 1234 5678",
+      "+595": "981 123 456",
+      "+598": "9 123 4567",
+      "+58":  "412 123 4567",
+      "+1":   "212 555 1234",
+      "+34":  "612 345 678",
+    };
+
+    function updatePlaceholder() {
+      const prefijo = inputPrefijo?.value || "+56";
+      inputTel.placeholder = PHONE_EXAMPLES[prefijo] || "123 456 789";
+    }
+
+    function validateTel() {
+      const digits  = inputTel.value.replace(/\D/g, "");
+      const prefijo = inputPrefijo?.value || "+56";
+      let ok = false;
+      if (prefijo === "+56") {
+        ok = /^9\d{8}$/.test(digits);
+      } else {
+        ok = digits.length >= 7 && digits.length <= 12;
+      }
+      const ejemplo = PHONE_EXAMPLES[prefijo] || "123 456 789";
+      if (digits.length > 3) setStatus(inputTel, ok ? "valid" : "invalid", ok ? "" : `Ej: ${ejemplo}`);
+      else setStatus(inputTel, null);
+    }
+
+    updatePlaceholder();
+    inputTel.addEventListener("input", validateTel);
+    inputPrefijo?.addEventListener("change", () => {
+      updatePlaceholder();
+      setStatus(inputTel, null);
+      if (inputTel.value) validateTel();
+    });
+  }
+
+  // --- Correo ---
+  const inputEmail = document.getElementById("correo");
+  if (inputEmail) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    inputEmail.addEventListener("input", () => {
+      const v = inputEmail.value.trim();
+      if (v.length > 5) setStatus(inputEmail, re.test(v) ? "valid" : "invalid", re.test(v) ? "" : "Formato inválido, ej: nombre@empresa.cl");
+      else setStatus(inputEmail, null);
+    });
+  }
+
+  // --- Empresa ---
+  const inputEmpresa = document.getElementById("empresa");
+  if (inputEmpresa) {
+    inputEmpresa.addEventListener("blur", () => {
+      const v = inputEmpresa.value.trim();
+      setStatus(inputEmpresa, v.length >= 2 ? "valid" : "invalid", v.length < 2 ? "Ingresa el nombre de la empresa" : "");
+    });
+    inputEmpresa.addEventListener("input", () => {
+      if (inputEmpresa.value.trim().length >= 2) setStatus(inputEmpresa, "valid", "");
+      else setStatus(inputEmpresa, null);
+    });
+  }
+
+  // --- Campos numéricos (m² y kg) ---
+  [
+    { id: "m2-blitz",    min: 20,  max: 5000,  unit: "m²" },
+    { id: "kg-allround", min: 500, max: 50000, unit: "kg" },
+  ].forEach(({ id, min, max, unit }) => {
+    const inp = document.getElementById(id);
+    if (!inp) return;
+    inp.addEventListener("input", () => {
+      if (!inp.value) { setStatus(inp, null); return; }
+      const v = Number(inp.value);
+      const ok = v >= min && v <= max;
+      setStatus(inp, ok ? "valid" : "invalid", ok ? "" : `Debe estar entre ${min.toLocaleString("es-CL")} y ${max.toLocaleString("es-CL")} ${unit}`);
+    });
+  });
 })();
 
 // ===== Reiniciar animaciones del texto en cada cambio de slide =====
@@ -361,6 +608,7 @@ quoteForm?.addEventListener("submit", async (e) => {
   const direccion = document.getElementById("direccion")?.value.trim();
   const empresa   = document.getElementById("empresa")?.value.trim();
   const telefonoRaw = document.getElementById("telefono")?.value.trim();
+  const prefijo     = document.getElementById("telefono-prefijo")?.value || "+56";
   const correo    = document.getElementById("correo")?.value.trim();
 
   // 2) Validar correo (más estricto que el input type=email)
@@ -370,24 +618,25 @@ quoteForm?.addEventListener("submit", async (e) => {
     return;
   }
 
-  // 3) Validar teléfono Chile (+56 9 XXXXXXXX o 9XXXXXXXX)
-  let telefono = telefonoRaw.replace(/[^\d+]/g, "");
+  // 3) Validar y normalizar teléfono según prefijo
+  const digits = telefonoRaw.replace(/\D/g, "");
+  let telefono;
 
-  // Normaliza: si viene 9XXXXXXXX => lo pasa a 56 9XXXXXXXX
-  if (/^9\d{8}$/.test(telefono)) {
-    telefono = "56" + telefono;
-  }
-
-  // Normaliza: si viene +56XXXXXXXXX => quita el +
-  if (/^\+56\d{9}$/.test(telefono)) {
-    telefono = telefono.slice(1);
-  }
-
-  // Debe quedar como: 569XXXXXXXX
-  const phoneRegex = /^56(?:9\d{8})$/;
-  if (!phoneRegex.test(telefono)) {
-    alert("❌ Ingresa un teléfono válido de Chile (ej: +56 9 1234 5678)");
-    return;
+  if (prefijo === "+56") {
+    if (/^9\d{8}$/.test(digits)) {
+      telefono = "56" + digits;
+    } else if (/^569\d{8}$/.test(digits)) {
+      telefono = digits;
+    } else {
+      alert("❌ Ingresa un teléfono válido de Chile (ej: 9 1234 5678)");
+      return;
+    }
+  } else {
+    if (digits.length < 7 || digits.length > 12) {
+      alert("❌ Ingresa un número de teléfono válido");
+      return;
+    }
+    telefono = prefijo + digits;
   }
 
   // 4) Guardar en Supabase (tabla quotes/cotizaciones)

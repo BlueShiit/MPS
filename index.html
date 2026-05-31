@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MPS — Montajes Profesionales & Soluciones</title>
-  <meta name="description" content="Montaje profesional y seguro de andamios para construcción e industria. Supervisión certificada, HSE y gestión documental." />
+  <meta name="description"
+    content="Montaje profesional y seguro de andamios para construcción e industria. Supervisión certificada, HSE y gestión documental." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -20,76 +22,44 @@
       </a>
       <nav class="nav" aria-label="principal">
         <a href="#inicio">Inicio</a>
-        <a href="#nosotros">Nosotros</a>
+        <a href="nosotros.html">Conócenos</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="proyectos.html">Proyectos</a>
       </nav>
     </div>
   </header>
 
   <main>
-
     <!-- ===== INICIO / HERO (Carrusel) ===== -->
     <section id="inicio" class="hero hero-slider" aria-label="Destacados">
       <div class="carousel" data-autoplay="true" data-interval="6000">
-        
-<!-- Slide 1 -->
-<div class="slide is-active" style="background-image:url('assets/img/hero1.jpg')">
-  <div class="caption container">
-    <span class="pill animate delay-1">Montaje profesional y seguro</span>
 
-    <h1 id="hero-title" class="animate delay-2">
-      Andamios industriales certificados
-    </h1>
+        <!-- Slide 1 -->
+        <div class="slide is-active" style="background-image:url('assets/img/hero1.jpg')">
+          <div class="caption container">
+            <span class="pill animate delay-1">Montaje profesional y seguro</span>
+            <h1 id="hero-title" class="animate delay-2">Andamios industriales certificados</h1>
+            <a href="#" class="cta animate delay-3" id="btn-cotizacion">Pide una cotización</a>
+          </div>
+        </div>
 
-    <p class="lead animate delay-3">
-      Planificamos, montamos y desmontamos andamios con personal certificado, gestión HSE y documentación completa. Servicio ágil y seguro en obra.
-    </p>
+        <!-- Slide 2 -->
+        <div class="slide" style="background-image:url('assets/img/hero2.jpg')">
+          <div class="caption container">
+            <span class="pill animate delay-1">Conócenos</span>
+            <h2 class="animate delay-2">Más que andamios: un equipo y una forma de trabajar</h2>
+            <a class="cta animate delay-3" href="nosotros.html">Conoce a MPS</a>
+          </div>
+        </div>
 
-    <div class="stack" style="margin-top:18px">
-      <span class="badge">⏱ Inicio en obra: máx. 15 días tras pedido</span>
-      <span class="badge">📍 Puente Alto, RM</span>
-      <a class="badge" href="mailto:arturoperezm2015@gmail.com">✉️ arturoperezm2015@gmail.com</a>
-    </div>
-
-    <a href="#" class="cta" id="btn-cotizacion">
-      Pide una cotización
-    </a>
-
-
-  </div>
-</div>
-
-<!-- Slide 2 -->
-<div class="slide" style="background-image:url('assets/img/hero2.jpg')">
-  <div class="caption container">
-    <span class="pill animate delay-1">Conócenos</span>
-
-    <h2 class="animate delay-2">Más que andamios: un equipo y una forma de trabajar</h2>
-
-    <p class="lead animate delay-3">
-      En MPS combinamos planificación, seguridad y gestión documental para ejecutar faenas con orden,
-      trazabilidad y cumplimiento en terreno.
-    </p>
-
-    <a class="cta animate delay-3" href="#nosotros">Conoce a MPS</a>
-  </div>
-</div>
-
-<!-- Slide 3 -->
-<div class="slide" style="background-image:url('assets/img/hero3.jpg')">
-  <div class="caption container">
-    <span class="pill animate delay-1">Servicios &amp; Proyectos</span>
-
-    <h2 class="animate delay-2">Explora lo que hacemos en obra</h2>
-
-    <p class="lead animate delay-3">
-      Revisa nuestros servicios (montaje, desmontaje y supervisión) y algunos proyectos para ver
-      cómo trabajamos y qué resultados entregamos.
-    </p>
-
-    <a class="cta animate delay-3" href="#explorar">Ver servicios y proyectos</a>
-  </div>
-</div>
-
+        <!-- Slide 3 -->
+        <div class="slide" style="background-image:url('assets/img/hero3.jpg')">
+          <div class="caption container">
+            <span class="pill animate delay-1">Servicios &amp; Proyectos</span>
+            <h2 class="animate delay-2">Explora lo que hacemos en obra</h2>
+            <a class="cta animate delay-3" href="servicios.html">Ver servicios</a>
+          </div>
+        </div>
 
         <!-- Controles -->
         <button class="ctrl prev" aria-label="Anterior" title="Anterior">‹</button>
@@ -99,397 +69,431 @@
     </section>
 
     <!-- ===== NOSOTROS ===== -->
-<section id="nosotros" class="section" aria-labelledby="nosotros-title">
-  <div class="container">
-    <h2 id="nosotros-title" class="section-title">Nosotros</h2>
+    <section id="nosotros" class="section" aria-labelledby="nosotros-title">
+      <div class="container">
+        <h2 id="nosotros-title" class="section-title">Nosotros</h2>
 
-    <p class="lead center nosotros-intro">
-      Somos <strong>Montajes Profesionales & Soluciones (MPS)</strong>, especialistas en montaje y desmontaje de andamios
-      con foco en <strong>seguridad</strong>, <strong>calidad</strong> y <strong>cumplimiento normativo</strong>.
-      Operamos con personal certificado y supervisión en obra.
-    </p>
-
-    <div class="nosotros-divider"></div>
-
-    <div class="about-grid">
-      <article class="about-card about-blue reveal">
-        <h3>Por qué MPS</h3>
-        <p>
-          Coordinamos faenas con planificación y control en terreno, priorizando continuidad operativa
-          y estándares de seguridad para evitar detenciones y reprocesos.
+        <p class="lead center nosotros-intro">
+          Somos <strong>Montajes Profesionales & Soluciones (MPS)</strong>, especialistas en montaje y desmontaje de
+          andamios industriales,
+          gestión de soluciones operativas en terreno y apoyo a la ejecución segura de proyectos. Nuestro enfoque
+          combina
+          <strong>seguridad</strong>, <strong>calidad</strong>, <strong>planificación</strong> y <strong>cumplimiento
+            normativo</strong>,
+          trabajando con personal certificado y supervisión en obra para garantizar continuidad operativa y respuestas
+          adaptadas a las necesidades de cada cliente.
         </p>
-      </article>
 
-      <article class="about-card about-yellow reveal">
-        <h3>HSE y documentación</h3>
-        <p>
-          Apoyamos la gestión documental requerida por obra (inducciones, registros, procedimientos y reportes),
-          asegurando trazabilidad y cumplimiento.
+        <div class="nosotros-divider"></div>
+
+        <div class="about-grid">
+          <article class="about-card about-blue reveal">
+            <div class="about-icon">
+              <span>✓</span>
+            </div>
+            <h3>Por qué MPS</h3>
+            <p>
+              Coordinamos faenas con planificación y control en terreno, priorizando continuidad operativa
+              y estándares de seguridad para evitar detenciones y reprocesos.
+            </p>
+            <a href="nosotros.html#por-que-mps" class="about-more">Leer más →</a>
+          </article>
+
+          <article class="about-card about-yellow reveal">
+            <div class="about-icon">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                <!-- clip superior -->
+                <path d="M9 4.5H15" stroke="white" stroke-width="2" stroke-linecap="round" />
+
+                <rect x="8" y="2.5" width="8" height="4" rx="1.5" stroke="white" stroke-width="2" />
+
+                <!-- hoja -->
+                <rect x="5" y="5.5" width="14" height="16" rx="2" stroke="white" stroke-width="2" />
+
+                <!-- checklist -->
+                <path d="M8 10L9 11L11 9" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+
+                <path d="M13 10H16" stroke="white" stroke-width="2" stroke-linecap="round" />
+
+                <path d="M8 14L9 15L11 13" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+
+                <path d="M13 14H16" stroke="white" stroke-width="2" stroke-linecap="round" />
+
+                <path d="M8 18L9 19L11 17" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+
+                <path d="M13 18H16" stroke="white" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+
+            <h3>HSE y documentación</h3>
+
+            <p>
+              Apoyamos la gestión documental requerida por obra (inducciones,
+              registros, procedimientos y reportes), asegurando trazabilidad y
+              cumplimiento.
+            </p>
+            <a href="nosotros.html#hse-documentacion" class="about-more">Leer más →</a>
+          </article>
+
+          <article class="about-card about-dark reveal">
+            <div class="about-icon">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3L5 6V11C5 16 8.4 20.3 12 21C15.6 20.3 19 16 19 11V6L12 3Z" stroke="white" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9.5 12L11.2 13.7L14.8 10.1" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+
+            <h3>Seguridad</h3>
+
+            <p>
+              Planificamos faenas, controlamos riesgos y revisamos permanentemente las condiciones de trabajo
+              para una ejecución segura y eficiente.
+            </p>
+            <a href="nosotros.html#seguridad" class="about-more">Leer más →</a>
+          </article>
+
+          <article class="about-card about-blue reveal">
+            <div class="about-icon">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="8" stroke="white" stroke-width="2" />
+                <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" />
+                <path d="M15 9L20 4" stroke="white" stroke-width="2" stroke-linecap="round" />
+                <path d="M20 4L20 8" stroke="white" stroke-width="2" stroke-linecap="round" />
+                <path d="M20 4L16 4" stroke="white" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </div>
+            <h3>Misión</h3>
+            <p>
+              Entregar soluciones integrales en montaje y desmontaje de andamios, asegurando seguridad,
+              calidad y eficiencia operacional mediante personal capacitado y supervisión permanente.
+            </p>
+            <a href="nosotros.html#mision" class="about-more">Leer más →</a>
+          </article>
+
+          <article class="about-card about-yellow reveal">
+            <div class="about-icon">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 19V9H19V19" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M5 13H19" stroke="white" stroke-width="2" stroke-linecap="round" />
+                <path d="M8 9V19" stroke="white" stroke-width="2" stroke-linecap="round" />
+                <path d="M16 9V19" stroke="white" stroke-width="2" stroke-linecap="round" />
+                <path d="M4 19H20" stroke="white" stroke-width="2" stroke-linecap="round" />
+                <path d="M7 9L12 5L17 9" stroke="white" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h3>Experiencia</h3>
+            <p>
+              Participamos en proyectos de montaje, desmontaje y supervisión de andamios en distintos entornos
+              industriales y de construcción, adaptándonos a los requerimientos de cada obra.
+            </p>
+            <a href="nosotros.html#experiencia" class="about-more">Leer más →</a>
+
+          </article>
+
+          <article class="about-card about-dark reveal">
+            <div class="about-icon">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="4" width="6" height="6" stroke="white" stroke-width="2" />
+                <rect x="14" y="4" width="6" height="6" stroke="white" stroke-width="2" />
+                <rect x="9" y="14" width="6" height="6" stroke="white" stroke-width="2" />
+                <path d="M10 7H14" stroke="white" stroke-width="2" />
+                <path d="M12 10V14" stroke="white" stroke-width="2" />
+              </svg>
+            </div>
+            <h3>Soluciones integrales</h3>
+            <p>
+              Complementamos nuestros servicios con apoyo operativo, coordinación en terreno, planificación de trabajos
+              y gestión documental para facilitar la ejecución de cada proyecto.
+            </p>
+            <a href="nosotros.html#soluciones-integrales" class="about-more">Leer más →</a>
+          </article>
+        </div>
+
+        <p class="muted center" style="margin-top:16px">
+          Política de privacidad disponible para revisión.
+          <a href="/mnt/data/MPS_R2501_AND_CLIENTE  EBCO(1).pdf" target="_blank" rel="noopener">Ver PDF</a>
         </p>
-      </article>
-
-      <article class="about-card about-dark reveal">
-        <h3>Seguridad (resumen)</h3>
-        <ul>
-          <li>Planificación de faenas con anticipación.</li>
-          <li>Orden de trabajo y control de riesgos en zonas críticas.</li>
-          <li>Revisión de condiciones antes de iniciar labores.</li>
-        </ul>
-      </article>
-    </div>
-
-    <p class="muted center" style="margin-top:16px">
-      Política de privacidad disponible para revisión.
-      <a href="/mnt/data/MPS_R2501_AND_CLIENTE  EBCO(1).pdf" target="_blank" rel="noopener">Ver PDF</a>
-    </p>
-  </div>
-</section>
+      </div>
+    </section>
 
     <!-- ===== EXPLORAR ===== -->
-<section id="explorar" class="section explore-section">
-  <div class="container">
+    <section id="explorar" class="section explore-section">
+      <div class="container">
 
-      <h2 class="section-title explore-title">Explorar</h2>
-      <p class="lead explore-lead">
-        Conoce nuestros servicios y revisa algunos de los proyectos que hemos desarrollado.
-      </p>
+        <h2 class="section-title explore-title">Explorar</h2>
+        <p class="lead explore-lead">
+          Conoce nuestros servicios y revisa algunos de los proyectos que hemos desarrollado.
+        </p>
 
-      <div class="explore-divider"></div>
+        <div class="explore-divider"></div>
 
-      <div class="grid-explore">
-        <a href="servicios.html" class="explore-card reveal">
-          <img src="assets/img/servicios.jpg" alt="Servicios MPS">
-          <span>Servicios</span>
-          <span class="arrow">→</span>
-        </a>
+        <div class="grid-explore">
+          <a href="servicios.html" class="explore-card reveal">
+            <img src="assets/img/servicios.jpg" alt="Servicios MPS">
+            <span>Servicios</span>
+            <span class="arrow">→</span>
+          </a>
 
-        <a href="proyectos.html" class="explore-card reveal">
-          <img src="img/proyectos/proyecto1.jpg" alt="Proyectos MPS">
-          <span>Proyectos</span>
-          <span class="arrow">→</span>
-        </a>
+          <a href="proyectos.html" class="explore-card reveal">
+            <img src="assets/img/hero1.jpg" alt="Proyectos MPS">
+            <span>Proyectos</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
+
       </div>
-
-    </div> <!-- /.explore-panel -->
-  </div>   <!-- /.container -->
-</section>
-
+    </section>
   </main>
 
   <!-- ========== COTIZACIÓN RÁPIDA ========== -->
-<div class="quote-modal" id="quote-modal" aria-hidden="true">
-  <div class="quote-backdrop" id="quote-backdrop"></div>
+  <div class="quote-modal" id="quote-modal" aria-hidden="true">
+    <div class="quote-backdrop" id="quote-backdrop"></div>
 
-  <div class="quote-card" role="dialog" aria-modal="true" aria-labelledby="quote-title">
-    <button class="quote-close" type="button" aria-label="Cerrar cotización">&times;</button>
+    <div class="quote-card" role="dialog" aria-modal="true" aria-labelledby="quote-title">
+      <button class="quote-close" type="button" aria-label="Cerrar cotización">&times;</button>
 
-    <h2 id="quote-title">Cotización rápida</h2>
-    <p class="muted tiny">
-      Selecciona el tipo de andamio y completa los datos de tu obra. Te contactaremos a la brevedad.
-    </p>
-
-    <form
-      id="quote-form"
-      name="cotizacion"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-    >
-      <!-- Campo requerido por Netlify -->
-      <input type="hidden" name="form-name" value="cotizacion">
-
-      <!-- Campo anti-spam invisible -->
-      <p hidden>
-        <label>
-          Don’t fill this out: <input name="bot-field">
-        </label>
+      <h2 id="quote-title">Cotización rápida</h2>
+      <p class="muted tiny">
+        Selecciona el tipo de andamio y completa los datos de tu obra. Te contactaremos a la brevedad.
       </p>
 
-      <!-- Tipo de andamio -->
-      <div class="field">
-        <label for="tipo-andamio">Tipo de andamio</label>
-        <select id="tipo-andamio" name="tipo_andamio" required>
-          <option value="">Selecciona una opción</option>
-          <option value="blitz">Andamios Blitz</option>
-          <option value="allround">Andamios Allround</option>
-        </select>
-      </div>
+      <form id="quote-form" name="cotizacion" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="cotizacion">
 
-      <!-- Blitz: m² -->
-      <div class="field" id="campo-blitz">
-        <label for="m2-blitz">Metros cuadrados de andamio (Blitz)</label>
-        <input
-          type="number"
-          id="m2-blitz"
-          name="m2_blitz"
-          min="20"
-          max="5000"
-          step="10"
-          placeholder="Ej: 250"
-        />
-      </div>
+        <p hidden>
+          <label>
+            Don’t fill this out: <input name="bot-field">
+          </label>
+        </p>
 
-      <!-- Allround: kilos -->
-      <div class="field" id="campo-allround">
-        <label for="kg-allround">Kilos de carga requeridos (Allround)</label>
-        <input
-          type="number"
-          id="kg-allround"
-          name="kg_allround"
-          min="500"
-          max="50000"
-          step="500"
-          placeholder="Ej: 5000"
-        />
-      </div>
+        <div class="field">
+          <label for="tipo-andamio">Tipo de andamio</label>
+          <select id="tipo-andamio" name="tipo_andamio" required>
+            <option value="">Selecciona una opción</option>
+            <option value="blitz">Andamios Blitz</option>
+            <option value="allround">Andamios Allround</option>
+          </select>
+        </div>
 
-      <!-- Ciudad -->
-      <div class="field">
-        <label for="ciudad">Ciudad de la obra</label>
-        <input
-          type="text"
-          id="ciudad"
-          name="ciudad"
-          placeholder="Ej: Puente Alto, RM"
-          required
-        />
-      </div>
+        <div class="field" id="campo-blitz">
+          <label for="m2-blitz">Metros cuadrados de andamio (Blitz)</label>
+          <input type="number" id="m2-blitz" name="m2_blitz" min="20" max="5000" step="10" placeholder="Ej: 250" />
+        </div>
 
-      <!-- Dirección -->
-      <div class="field">
-        <label for="direccion">Dirección de la obra</label>
-        <input
-          type="text"
-          id="direccion"
-          name="direccion"
-          placeholder="Calle, número, referencia"
-          required
-        />
-      </div>
+        <div class="field" id="campo-allround">
+          <label for="kg-allround">Kilos de carga requeridos (Allround)</label>
+          <input type="number" id="kg-allround" name="kg_allround" min="500" max="50000" step="500"
+            placeholder="Ej: 5000" />
+        </div>
 
-      <!-- Empresa -->
-      <div class="field">
-        <label for="empresa">Nombre de la empresa</label>
-        <input
-          type="text"
-          id="empresa"
-          name="empresa"
-          placeholder="Razón social o nombre de la empresa"
-          required
-        />
-      </div>
+        <div class="field">
+          <label for="ciudad">Ciudad de la obra</label>
+          <input type="text" id="ciudad" name="ciudad" placeholder="Ej: Puente Alto, RM" required autocomplete="off" />
+        </div>
 
-      <!-- Teléfono -->
-      <div class="field">
-        <label for="telefono">Número de contacto</label>
-        <input
-          type="tel"
-          id="telefono"
-          name="telefono"
-          placeholder="+56 9 1234 5678"
-          inputmode="numeric"
-          pattern="[0-9+ ]*"
-          required
-        />
+        <div class="field">
+          <label for="direccion">Dirección de la obra</label>
+          <input type="text" id="direccion" name="direccion" placeholder="Calle, número, referencia" required />
+        </div>
 
-      </div>
+        <div class="field">
+          <label for="empresa">Nombre de la empresa</label>
+          <input type="text" id="empresa" name="empresa" placeholder="Razón social o nombre de la empresa" required />
+        </div>
 
-      <!-- Correo -->
-      <div class="field">
-        <label for="correo">Correo de contacto</label>
-        <input
-          type="email"
-          id="correo"
-          name="correo"
-          placeholder="nombre@empresa.cl"
-          required
-        />
-      </div>
+        <div class="field">
+          <label for="telefono">Número de contacto</label>
+          <div class="phone-wrap">
+            <select id="telefono-prefijo" name="telefono_prefijo" class="phone-prefix">
+              <option value="+56" selected>🇨🇱 +56</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+591">🇧🇴 +591</option>
+              <option value="+55">🇧🇷 +55</option>
+              <option value="+57">🇨🇴 +57</option>
+              <option value="+593">🇪🇨 +593</option>
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+51">🇵🇪 +51</option>
+              <option value="+595">🇵🇾 +595</option>
+              <option value="+598">🇺🇾 +598</option>
+              <option value="+58">🇻🇪 +58</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+34">🇪🇸 +34</option>
+            </select>
+            <input type="tel" id="telefono" name="telefono" placeholder="9 1234 5678" inputmode="numeric" required />
+          </div>
+        </div>
 
-      <div class="quote-actions">
-        <button type="button" class="btn-ghost" id="quote-cancelar">
-          Cancelar
-        </button>
-        <button type="submit" class="cta cta-cotizar">
-          Enviar cotización
-        </button>
-      </div>
+        <div class="field">
+          <label for="correo">Correo de contacto</label>
+          <input type="email" id="correo" name="correo" placeholder="nombre@empresa.cl" required />
+        </div>
 
-    </form>
+        <div class="quote-actions">
+          <button type="button" class="cta cta-cotizar" id="quote-cancelar">
+            Cancelar
+          </button>
+          <button type="submit" class="cta cta-cotizar">
+            Enviar cotización
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
-<!-- ========== FIN COTIZACIÓN RÁPIDA ========== -->
+  <!-- ========== FIN COTIZACIÓN RÁPIDA ========== -->
 
   <footer>
-    <div class="container">
-      <small>© <span id="year"></span> MPS — Montajes Profesionales & Soluciones. Todos los derechos reservados.</small>
+    <div class="container footer-grid">
+
+      <div class="footer-col">
+        <img src="assets/img/logo-mps-navbar.svg" alt="MPS Andamios" class="footer-logo">
+        <p class="footer-desc">Montaje y desmontaje de andamios con personal certificado, gestión HSE y supervisión permanente en obra.</p>
+
+        <p class="footer-heading">Contacto</p>
+        <ul class="footer-links">
+          <li><a href="mailto:arturoperezm2015@gmail.com">✉ arturoperezm2015@gmail.com</a></li>
+          <li><a href="https://wa.me/56954138616?text=Hola%20MPS,%20me%20gustaría%20cotizar." target="_blank" rel="noopener">📱 +56 9 5413 8616</a></li>
+        </ul>
+
+        <p class="footer-heading">Ubicación</p>
+        <ul class="footer-links">
+          <li>📍 Puente Alto</li>
+          <li>Región Metropolitana, Chile</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-heading">Navegación</p>
+        <ul class="footer-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="nosotros.html">Conócenos</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-heading">Servicios</p>
+        <ul class="footer-links">
+          <li><a href="servicios.html">Montaje y desmontaje</a></li>
+          <li><a href="servicios.html">Supervisión de obras</a></li>
+          <li><a href="servicios.html">Gestión HSE</a></li>
+          <li><a href="index.html?cotizar=1">Cotización rápida</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="container footer-social">
+      <span class="footer-social-label">Síguenos</span>
+      <div class="footer-social-icons">
+        <a href="#" class="footer-social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="#" class="footer-social-icon" aria-label="X (Twitter)" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="#" class="footer-social-icon" aria-label="Facebook" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <small>© <span id="year"></span> MPS — Montajes Profesionales & Soluciones. Todos los derechos reservados.</small>
+      </div>
     </div>
   </footer>
 
   <!-- ===== WIDGET DE CONTACTO FLOTANTE ===== -->
-<div class="contact-panel" aria-hidden="true">
-  <div class="contact-panel-header">
-    <div class="contact-avatar">👷‍♂️</div>
-    <div>
-      <h3>Contáctanos</h3>
-      <p>Nuestro equipo está disponible para ayudarte.</p>
+  <div class="contact-panel" aria-hidden="true">
+    <div class="contact-panel-header">
+      <div class="contact-avatar">👷‍♂️</div>
+      <div>
+        <h3>Contáctanos</h3>
+        <p>Nuestro equipo está disponible para ayudarte.</p>
+      </div>
+      <button class="contact-close" aria-label="Cerrar contacto">×</button>
     </div>
-    <button class="contact-close" aria-label="Cerrar contacto">×</button>
+
+    <div class="contact-panel-body">
+      <a class="contact-option"
+        href="https://wa.me/56954138616?text=Hola%20MPS,%20me%20gustaría%20cotizar%20un%20montaje%20de%20andamios."
+        target="_blank" rel="noopener">
+        <div class="contact-icon">🟢</div>
+        <div>
+          <strong>WhatsApp</strong>
+          <small>Habla directamente con nosotros por la app.</small>
+        </div>
+      </a>
+
+      <form id="widget-form" class="contact-form">
+        <div>
+          <label for="w-nombre">Nombre</label>
+          <input type="text" id="w-nombre" placeholder="Ej: Juan Pérez" autocomplete="name" required>
+        </div>
+
+        <div>
+          <label for="w-correo">Correo</label>
+          <input type="email" id="w-correo" placeholder="Ej: contacto@empresa.cl" autocomplete="email" required>
+        </div>
+
+        <div>
+          <label for="w-mensaje">Mensaje</label>
+          <textarea id="w-mensaje" rows="3" placeholder="Ej: Necesito cotizar andamios para una obra en Puente Alto"
+            required></textarea>
+        </div>
+
+        <button type="submit" class="cta" style="margin-top:10px;">
+          Enviar mensaje
+        </button>
+
+        <p id="w-msg" class="tiny muted" style="margin-top:8px;"></p>
+      </form>
+    </div>
   </div>
 
-  <div class="contact-panel-body">
-    <!-- Opción 1: WhatsApp -->
-    <a class="contact-option" 
-       href="https://wa.me/56954138616?text=Hola%20MPS,%20me%20gustaría%20cotizar%20un%20montaje%20de%20andamios." 
-       target="_blank" rel="noopener">
-      <div class="contact-icon">🟢</div>
-      <div>
-        <strong>WhatsApp</strong>
-        <small>Habla directamente con nosotros por la app.</small>
-      </div>
-    </a>
+  <!-- Botón flotante -->
+  <button class="contact-toggle" aria-label="Abrir contacto">
+    <svg class="contact-icon-svg" viewBox="0 0 64 64" fill="none">
+      <path d="M18 24a14 14 0 0 1 28 0" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <rect x="15" y="26" width="6" height="12" rx="3" fill="white" />
+      <rect x="43" y="26" width="6" height="12" rx="3" fill="white" />
+      <path d="M24 24
+           c0-4.5 3.5-8 8-8s8 3.5 8 8
+           v6
+           c0 4.5-3.5 8-8 8s-8-3.5-8-8
+           v-6z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+      <path d="M24.5 23
+           c1.2-2.2 3.1-3.5 5.5-3.5
+           c2.4 0 4.3 1.1 5.5 3.2" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" />
+      <path d="M28 38v4" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <path d="M36 38v4" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <path d="M18 52
+           c3.5-3.5 7.5-5 14-5s10.5 1.5 14 5" stroke="white" stroke-width="3" stroke-linecap="round" />
+      <path d="M40 34
+           c0 3 2.4 5.4 5.4 5.4
+           h2.2" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="48.5" cy="39.4" r="2" fill="white" />
+    </svg>
+  </button>
 
-    <!-- Opción 2: Formulario de contacto -->
-    <form id="widget-form" class="contact-form">
-      <div>
-        <label for="w-nombre">Nombre</label>
-        <input
-          type="text"
-          id="w-nombre"
-          placeholder="Ej: Juan Pérez"
-          autocomplete="name"
-          required
-        >
-      </div>
-
-      <div>
-        <label for="w-correo">Correo</label>
-        <input
-          type="email"
-          id="w-correo"
-          placeholder="Ej: contacto@empresa.cl"
-          autocomplete="email"
-          required
-        >
-      </div>
-
-      <div>
-        <label for="w-mensaje">Mensaje</label>
-        <textarea
-          id="w-mensaje"
-          rows="3"
-          placeholder="Ej: Necesito cotizar andamios para una obra en Puente Alto"
-          required
-        ></textarea>
-      </div>
-
-      <button type="submit" class="cta" style="margin-top:10px;">
-        Enviar mensaje
-      </button>
-
-      <p id="w-msg" class="tiny muted" style="margin-top:8px;"></p>
-    </form>
-
-  </div>
-</div>
-
-<!-- Botón flotante -->
-<button class="contact-toggle" aria-label="Abrir contacto">
-  <svg class="contact-icon-svg" viewBox="0 0 64 64" fill="none">
-
-    <!-- Diadema / arco superior -->
-    <path
-      d="M18 24a14 14 0 0 1 28 0"
-      stroke="white"
-      stroke-width="3"
-      stroke-linecap="round"
-    />
-
-    <!-- Audífono izquierdo -->
-    <rect
-      x="15"
-      y="26"
-      width="6"
-      height="12"
-      rx="3"
-      fill="white"
-    />
-
-    <!-- Audífono derecho -->
-    <rect
-      x="43"
-      y="26"
-      width="6"
-      height="12"
-      rx="3"
-      fill="white"
-    />
-
-    <!-- Contorno cara + barbilla -->
-    <path
-      d="M24 24
-         c0-4.5 3.5-8 8-8s8 3.5 8 8
-         v6
-         c0 4.5-3.5 8-8 8s-8-3.5-8-8
-         v-6z"
-      stroke="white"
-      stroke-width="3"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      fill="none"
-    />
-
-    <!-- Pelo interior (similar al ejemplo) -->
-    <path
-      d="M24.5 23
-         c1.2-2.2 3.1-3.5 5.5-3.5
-         c2.4 0 4.3 1.1 5.5 3.2"
-      stroke="white"
-      stroke-width="2"
-      stroke-linecap="round"
-      fill="none"
-    />
-
-    <!-- Cuello (dos líneas que bajan) -->
-    <path
-      d="M28 38v4"
-      stroke="white"
-      stroke-width="3"
-      stroke-linecap="round"
-    />
-    <path
-      d="M36 38v4"
-      stroke="white"
-      stroke-width="3"
-      stroke-linecap="round"
-    />
-
-    <!-- Hombros / torso -->
-    <path
-      d="M18 52
-         c3.5-3.5 7.5-5 14-5s10.5 1.5 14 5"
-      stroke="white"
-      stroke-width="3"
-      stroke-linecap="round"
-    />
-
-    <!-- Micrófono curvo -->
-    <path
-      d="M40 34
-         c0 3 2.4 5.4 5.4 5.4
-         h2.2"
-      stroke="white"
-      stroke-width="3"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <circle cx="48.5" cy="39.4" r="2" fill="white" />
-
-  </svg>
-</button>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
