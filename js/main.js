@@ -615,12 +615,14 @@ function abrirCotizacion() {
   if (!quoteModal) return;
   quoteModal.classList.add("is-open");
   quoteModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
 }
 
 function cerrarCotizacion() {
   if (!quoteModal) return;
   quoteModal.classList.remove("is-open");
   quoteModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
 }
 
 function actualizarCampos() {

@@ -772,6 +772,7 @@ form textarea:focus {
   inset: 0;
   z-index: 60;
   display: none;
+  overflow-y: auto;
 }
 
 .quote-modal.is-open {
@@ -779,7 +780,7 @@ form textarea:focus {
 }
 
 .quote-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.55);
   backdrop-filter: blur(2px);
@@ -793,6 +794,10 @@ form textarea:focus {
   border-radius: 18px;
   padding: 24px 24px 20px;
   box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 .quote-card h2 {
