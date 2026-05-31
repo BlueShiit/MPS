@@ -21,11 +21,19 @@ Responde siempre en **español**.
 ### Variables de entorno (Netlify)
 `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `MAIL_TO`
 
-### Credenciales conocidas
+### Credenciales e IDs conocidos
 - Email de contacto: `arturoperezm2015@gmail.com`
 - WhatsApp: `+56 9 5413 8616`
 - Supabase URL: `https://orwnsptmtraujxmeqwph.supabase.co`
+- Supabase Project Ref: `orwnsptmtraujxmeqwph`
+- Netlify Site ID: `ea0c7d65-90d5-4135-90eb-3d1c5b56a66f`
+- Netlify URL: `https://mps-andamios.netlify.app`
 - Ubicación: Puente Alto, Región Metropolitana, Chile
+
+### Acceso a infraestructura desde Claude Code
+- **Supabase Management API**: requiere Personal Access Token (PAT) de `supabase.com/dashboard/account/tokens`. Con él se puede ejecutar SQL via `POST https://api.supabase.com/v1/projects/{ref}/database/query`
+- **Netlify API**: usa el mismo PAT de Supabase (funciona como bearer token para Netlify también)
+- **psql / Supabase CLI**: no instalados en el equipo. Homebrew tampoco instalado.
 
 ---
 
@@ -57,7 +65,7 @@ MPS/
 
 Todas las páginas comparten el mismo navbar con estos 4 enlaces:
 - **Inicio** → `index.html` (ancla `#inicio` desde index)
-- **Conócenos** → `nosotros.html` ← fue renombrado de "Nosotros" para evitar confusión con la sección `#nosotros` del index
+- **Conócenos** → `nosotros.html` ← renombrado de "Nosotros" para evitar confusión con la sección `#nosotros` del index
 - **Servicios** → `servicios.html`
 - **Proyectos** → `proyectos.html`
 
@@ -66,83 +74,110 @@ Todas las páginas comparten el mismo navbar con estos 4 enlaces:
 ## Funcionalidades implementadas
 
 ### Hero / Slider (`index.html`)
-- 3 slides con: pill + título + botón CTA
-- Altura: `calc(100vh - 70px)` para llenar la pantalla menos el navbar
-- Slide 1 → abre modal de cotización
+- 3 slides: pill + título + botón CTA
+- Altura: `calc(100vh - 70px)` (70px = logo 46px + padding 24px del navbar)
+- Slide 1 → abre modal de cotización (`id="btn-cotizacion"`)
 - Slide 2 → `nosotros.html`
 - Slide 3 → `servicios.html`
 - Autoplay 6s, controles prev/next centrados con flexbox, dots, swipe táctil, pausa en hover
 
 ### Página Conócenos (`nosotros.html`)
-6 secciones, cada una con un botón `detail-link`:
+6 secciones con botones `detail-link`:
 - **Por qué elegir MPS** → `servicios.html`
-- **HSE y documentación** → PDF (pendiente, botón deshabilitado con clase `detail-link--soon`)
+- **HSE y documentación** → PDF pendiente, botón con clase `detail-link--soon` (deshabilitado)
 - **Seguridad** → `index.html?cotizar=1`
 - **Misión** → sin botón
 - **Experiencia** → `proyectos.html`
 - **Soluciones integrales** → `servicios.html`
 
 ### Modal de cotización
-- Se abre con `id="btn-cotizacion"` o navegando a `?cotizar=1` en la URL
-- El parámetro `?cotizar=1` es detectado en `main.js` y abre el modal automáticamente
-- El mismo modal existe en `index.html` y `servicios.html` (idénticos)
-- Formulario con Netlify Forms (`name="cotizacion"`, `data-netlify="true"`, honeypot)
-- Doble envío: Supabase (tabla `cotizaciones`) + Netlify Forms + email via `send-mail`
+- Se abre con botón `id="btn-cotizacion"` o con URL `?cotizar=1` (detectado en `main.js` al cargar)
+- Mismo modal en `index.html` y `servicios.html` (HTML idéntico)
+- `position: fixed`, scroll interno propio (`overflow-y: auto`)
+- `body.modal-open { overflow: hidden }` bloquea scroll del fondo mientras está abierto
+- Netlify Forms: `name="cotizacion"`, `data-netlify="true"`, honeypot `bot-field`
+- Flujo de envío: Supabase → Netlify Forms → `send-mail` (admin + cliente)
 
-### Formulario de cotización — campos y validaciones
-| Campo | Validación / Ayuda |
+### Formulario de cotización — campos y validaciones (`initFormHelpers()`)
+| Campo | Comportamiento |
 |---|---|
-| Tipo de andamio | Select: Blitz (m²) o Allround (kg) |
-| M² / KG | Rango: 20–5.000 m² / 500–50.000 kg, validación inline |
-| Ciudad | Autocomplete custom (dropdown propio, no datalist nativo) con ~60 ciudades chilenas |
-| Dirección | Autocomplete con Nominatim API (OpenStreetMap, sin API key, solo Chile). Al seleccionar auto-rellena Ciudad |
-| Empresa | Validación en blur, mínimo 2 caracteres |
-| Teléfono | Selector de prefijo país (Chile +56 por defecto, 13 países disponibles). Placeholder cambia por país. Validación: Chile = `9XXXXXXXX`; otros = 7–12 dígitos |
+| Tipo de andamio | Select Blitz/Allround. Muestra/oculta campo m² o kg según selección |
+| M² / KG | Rango: 20–5.000 m² / 500–50.000 kg. Validación inline + activa caja de precio |
+| Ciudad | Autocomplete custom con ~60 ciudades/comunas chilenas. Se auto-rellena al seleccionar dirección |
+| Dirección | Autocomplete Nominatim (OpenStreetMap, sin API key, `countrycodes=cl`). Al seleccionar rellena Ciudad |
+| Empresa | Validación en blur, mín. 2 caracteres |
+| Teléfono | `phone-wrap`: selector prefijo + input. Chile +56 por defecto (13 países). Placeholder y validación cambian por país. Chile: `9XXXXXXXX`; otros: 7–12 dígitos |
 | Correo | Validación regex en tiempo real |
 
-**Botones del formulario**: Cancelar (blanco con borde azul) y Enviar cotización (azul), mismo tamaño con `flex: 1`.
+### Algoritmo de cotización (`PRICING` en `main.js`)
+Precios por tramo de volumen, neto + IVA 19%:
 
-### CSS — clases de validación inline
-- `.field--valid` → borde verde en input
-- `.field--invalid` → borde rojo en input + `.field-hint--error` con mensaje
-- `.ac-list` / `.ac-item` → dropdown de autocomplete custom (mismo estilo en ciudad y dirección)
-- `.phone-wrap` → contenedor unificado selector prefijo + input teléfono
-- `.phone-prefix` → select del prefijo con `color-scheme: light` para evitar problemas de color
+**Blitz (m²):** $4.200 → $3.600 → $3.000 → $2.500  
+**Allround (kg):** $380 → $320 → $260 → $200
+
+- `calcularPrecio(tipo, cantidad)` → devuelve `{ cantidad, unidad, precioUnitario, neto, iva, total }`
+- `formatCLP(n)` → formato `$1.500.000` con `toLocaleString("es-CL")`
+- Caja verde `.precio-box` aparece en tiempo real dentro del formulario al ingresar m²/kg
+- Precio incluido en payload de Supabase y en el email al cliente/admin
+
+### Supabase — tabla `cotizaciones`
+Columnas existentes:
+`id`, `created_at`, `tipo_andamio`, `m2_blitz`, `kg_allround`, `ciudad`, `direccion`, `empresa`, `telefono`, `correo`, `precio_unitario`, `precio_neto`, `precio_iva`, `precio_total`
+
+Lógica de envío: intenta insertar con columnas de precio; si falla por columna inexistente, reintenta sin precio (fallback defensivo).
+
+### Email automático (`netlify/functions/send-mail.js`)
+- `emailClienteHTML()`: correo de confirmación al cliente con resumen + tabla de precio estimado
+- `emailAdminHTML()`: notificación interna con todos los datos + precio
+- `precioBlock(precio)`: genera la tabla de desglose CLP (reutilizada en ambos emails)
+- Se dispara desde el submit del formulario via `fetch("/.netlify/functions/send-mail", ...)`
+
+### CSS — clases relevantes
+| Clase | Uso |
+|---|---|
+| `.field--valid` / `.field--invalid` | Borde verde/rojo en inputs |
+| `.field-hint--error` / `--ok` | Mensaje de ayuda debajo del input |
+| `.ac-list` / `.ac-item` | Dropdown autocomplete custom (ciudad y dirección) |
+| `.phone-wrap` / `.phone-prefix` | Contenedor prefijo + input teléfono |
+| `.precio-box` | Caja estimación de precio en el formulario |
+| `.quote-modal` | Modal de cotización (`overflow-y: auto` para scroll interno) |
+| `body.modal-open` | Bloquea scroll del fondo cuando el modal está abierto |
+| `.detail-link--soon` | Botón deshabilitado con texto "(próximamente)" |
+| `.footer-grid` | Grid de 3 columnas del footer (colapsa a 1 en mobile ≤640px) |
+| `.footer-social` | Fila de íconos SVG de redes sociales |
 
 ### Footer (todas las páginas)
-3 columnas + barra inferior:
-- **Col 1**: Logo, descripción, sección "Contacto" (email + WhatsApp), sección "Ubicación" (Puente Alto, RM)
-- **Col 2**: Navegación (4 páginas)
-- **Col 3**: Servicios (montaje, supervisión, HSE, cotización rápida)
-- **Síguenos**: fila entre columnas y copyright con íconos SVG de Instagram, X y Facebook (hrefs pendientes de redes reales)
-- **Copyright**: `© [año dinámico] MPS — Montajes Profesionales & Soluciones`
+- **Col 1**: Logo + descripción + "Contacto" (email, WhatsApp) + "Ubicación" (Puente Alto, RM)
+- **Col 2**: Navegación
+- **Col 3**: Servicios + link cotización rápida
+- **Síguenos**: íconos SVG de Instagram, X y Facebook (hrefs en `#`, pendientes)
+- **Copyright**: año dinámico via `id="year"`
 
 ### Otras funcionalidades (`main.js`)
-- **Scroll reveal** con `IntersectionObserver` (clase `.reveal`)
-- **Widget de contacto flotante** (panel lateral con form → Supabase tabla `contactos`)
-- **Galería de proyectos** con slider por tarjeta y lightbox con teclado
-- **Año dinámico** en footer via `id="year"`
-- **`initFormHelpers()`** — función que inicializa todos los helpers del formulario
+- **Auto-open modal**: detecta `?cotizar=1` en URL al cargar → abre modal y limpia la URL con `history.replaceState`
+- **Scroll reveal**: `IntersectionObserver` sobre elementos `.reveal`
+- **Widget de contacto flotante**: panel lateral → Supabase tabla `contactos`
+- **Galería de proyectos**: slider por tarjeta + lightbox con navegación por teclado
 
 ---
 
-## Decisiones y contexto importante
+## Decisiones técnicas importantes
 
-- El navbar tenía "Nosotros" apuntando a `#nosotros` (ancla interna) en `servicios.html` y `proyectos.html`, causando redirección errónea. Se renombró a **"Conócenos"** y se corrigieron todos los hrefs.
-- El datalist nativo HTML para ciudad fue reemplazado por un dropdown custom porque el navegador (macOS) cambiaba el esquema de color al filtrar, haciendo el texto invisible.
-- `color-scheme: light` aplicado a `.field input` para forzar modo claro en controles nativos.
-- El hero usa `calc(100vh - 70px)` (70px = navbar: logo 46px + padding 24px).
-- En mobile el footer colapsa a 1 columna (`@media max-width: 640px`).
-- `nosotros.html` es un archivo nuevo (no existía antes, el contenido "Nosotros" estaba solo como sección dentro de `index.html`).
+- Navbar renombrado "Nosotros" → "Conócenos" porque `servicios.html` y `proyectos.html` apuntaban a `index.html#nosotros` (ancla interna), causando navegación errónea.
+- Datalist nativo reemplazado por autocomplete custom para ciudad: macOS cambiaba el esquema de color al filtrar dejando el texto invisible.
+- `color-scheme: light` en `.field input` para forzar modo claro en controles nativos del navegador.
+- `.quote-backdrop` usa `position: fixed` (no `absolute`) para no desplazarse al hacer scroll dentro del modal.
+- Supabase fallback: si las columnas de precio no existen, el insert se reintenta sin ellas para no bloquear el formulario.
 
 ---
 
-## Estado del proyecto (último commit)
+## Estado del proyecto
 
-**Commit:** `160c772` — *Rediseño UI: navbar, hero, footer, formulario y página Conócenos*
-**Branch:** `main` — sincronizado con GitHub (`BlueShiit/MPS`) y desplegado en Netlify.
+**Último commit:** `c8b0e75` — *Arregla scroll del modal de cotización*  
+**Tag de respaldo:** `v1.1-respaldo-20260531`  
+**Branch:** `main` — sincronizado con GitHub y desplegado en Netlify (`ready`)
 
 ### Pendiente / Por hacer
-- Reemplazar `href="#"` en íconos de redes sociales con URLs reales
-- Subir el PDF de documentación HSE y actualizar el botón en `nosotros.html` (quitar `detail-link--soon`, cambiar `href="#"` por la ruta del PDF)
-- Verificar número de WhatsApp en `servicios.html` (actualmente tiene `56912345678` placeholder en el widget de contacto)
+- Reemplazar `href="#"` en íconos de redes sociales (Instagram, X, Facebook) con URLs reales
+- Subir PDF de documentación HSE → actualizar botón en `nosotros.html#hse-documentacion` (quitar `detail-link--soon`, cambiar `href="#"` por ruta del PDF)
+- Verificar número de WhatsApp en widget de contacto de `servicios.html` (actualmente tiene placeholder `56912345678`)
