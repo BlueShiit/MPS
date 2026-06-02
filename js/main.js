@@ -365,17 +365,8 @@ function formatCLP(n) {
     const PHONE_EXAMPLES = {
       "+56":  "9 1234 5678",
       "+54":  "11 1234 5678",
-      "+591": "7 123 4567",
-      "+55":  "11 91234 5678",
-      "+57":  "300 123 4567",
-      "+593": "99 123 4567",
-      "+52":  "55 1234 5678",
       "+51":  "9 1234 5678",
-      "+595": "981 123 456",
-      "+598": "9 123 4567",
-      "+58":  "412 123 4567",
-      "+1":   "212 555 1234",
-      "+34":  "612 345 678",
+      "+591": "7 123 4567",
     };
 
     function updatePlaceholder() {
@@ -602,6 +593,23 @@ const campoAllround   = document.getElementById("campo-allround");
 const inputM2Blitz    = document.getElementById("m2-blitz");
 const inputKgAllround = document.getElementById("kg-allround");
 
+// Elemento de éxito (creado dinámicamente dentro del .quote-card)
+let quoteSuccessEl = null;
+const quoteCard = document.querySelector(".quote-card");
+if (quoteCard && quoteForm) {
+  quoteSuccessEl = document.createElement("div");
+  quoteSuccessEl.className = "quote-success";
+  quoteSuccessEl.hidden = true;
+  quoteSuccessEl.innerHTML = `
+    <div class="quote-success-icon">✓</div>
+    <h3>¡Cotización enviada!</h3>
+    <p>Te contactaremos a la brevedad.</p>
+    <button type="button" class="cta cta-cotizar">Cerrar</button>
+  `;
+  quoteSuccessEl.querySelector("button").addEventListener("click", cerrarCotizacion);
+  quoteCard.appendChild(quoteSuccessEl);
+}
+
 // 🔒 Teléfono: permitir solo números, + y espacios
 const inputTelefono = document.getElementById("telefono");
 
@@ -623,6 +631,23 @@ function cerrarCotizacion() {
   quoteModal.classList.remove("is-open");
   quoteModal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
+
+  // Restaurar formulario y limpiar estados
+  if (quoteSuccessEl) quoteSuccessEl.hidden = true;
+  quoteCard?.querySelector("h2")?.removeAttribute("hidden");
+  quoteCard?.querySelector(".muted.tiny")?.removeAttribute("hidden");
+  if (quoteForm) {
+    quoteForm.hidden = false;
+    quoteForm.reset();
+    quoteForm.querySelectorAll(".field").forEach(f => {
+      f.classList.remove("field--valid", "field--invalid");
+      const hint = f.querySelector(".field-hint");
+      if (hint) hint.textContent = "";
+    });
+    actualizarCampos();
+    const cajaPrecio = document.getElementById("precio-estimado");
+    if (cajaPrecio) cajaPrecio.hidden = true;
+  }
 }
 
 function actualizarCampos() {
@@ -676,11 +701,37 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-tipoAndamioSel?.addEventListener("change", actualizarCampos);
+tipoAndamioSel?.addEventListener("change", () => {
+  actualizarCampos();
+  const tipoField = tipoAndamioSel.closest(".field");
+  if (tipoField) {
+    tipoField.classList.remove("field--invalid");
+    const hint = tipoField.querySelector(".field-hint");
+    if (hint) hint.textContent = "";
+  }
+});
 
 // SUBMIT cotización -> Supabase (tabla cotizaciones)
 quoteForm?.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  // 0) Validar que se haya seleccionado tipo de andamio
+  if (!tipoAndamioSel?.value) {
+    const tipoField = tipoAndamioSel?.closest(".field");
+    if (tipoField) {
+      tipoField.classList.add("field--invalid");
+      let hint = tipoField.querySelector(".field-hint");
+      if (!hint) {
+        hint = document.createElement("small");
+        hint.className = "field-hint field-hint--error";
+        tipoField.appendChild(hint);
+      }
+      hint.className = "field-hint field-hint--error";
+      hint.textContent = "Selecciona el tipo de andamio";
+      tipoAndamioSel.focus();
+    }
+    return;
+  }
 
   // 1) Validación HTML5 (required, min, max, etc.)
   if (!quoteForm.checkValidity()) {
@@ -804,12 +855,46 @@ try {
   console.warn("No se pudo enviar correo automático:", e);
 }
 
-  // 6) UI
-  alert("✅ Cotización enviada. Quedó registrada en la base de datos.");
-  quoteForm.reset();
-  actualizarCampos();
-  cerrarCotizacion();
+  // 6) UI: mostrar mensaje de éxito dentro del modal
+  if (quoteSuccessEl && quoteForm) {
+    quoteForm.hidden = true;
+    quoteCard?.querySelector("h2")?.setAttribute("hidden", "");
+    quoteCard?.querySelector(".muted.tiny")?.setAttribute("hidden", "");
+    quoteSuccessEl.hidden = false;
+  } else {
+    quoteForm.reset();
+    actualizarCampos();
+    cerrarCotizacion();
+  }
 });
+
+// ============================
+// Navbar mobile (hamburguesa)
+// ============================
+(function initMobileNav() {
+  const navToggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector(".topbar .nav");
+  if (!navToggle || !nav) return;
+
+  navToggle.addEventListener("click", () => {
+    const isOpen = nav.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+
+  nav.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => {
+      nav.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".topbar")) {
+      nav.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+})();
 
 // ============================
 // Slider de proyectos + lightbox

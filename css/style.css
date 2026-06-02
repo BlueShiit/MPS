@@ -2636,6 +2636,132 @@ body.modal-open {
 }
 
 /* ============================
+   NAVBAR MOBILE (hamburguesa)
+   ============================ */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 2px;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .topbar {
+    position: sticky;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(10, 18, 32, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 8px 0 16px;
+    z-index: 19;
+  }
+
+  .nav.is-open {
+    display: flex;
+  }
+
+  .nav a {
+    margin-left: 0;
+    padding: 14px 24px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+
+  .nav a:last-child {
+    border-bottom: none;
+  }
+
+  .nav a:hover {
+    color: #FFB703;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  /* Flechas slider más grandes en mobile */
+  .ctrl {
+    width: 44px;
+    height: 44px;
+    font-size: 26px;
+  }
+
+  .ctrl.prev { left: 10px; }
+  .ctrl.next { right: 10px; }
+}
+
+/* ============================
+   MENSAJE ÉXITO COTIZACIÓN
+   ============================ */
+.quote-success {
+  text-align: center;
+  padding: 48px 24px 36px;
+}
+
+.quote-success-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #fff;
+  font-size: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.3);
+}
+
+.quote-success h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px;
+}
+
+.quote-success p {
+  color: #475569;
+  font-size: 15px;
+  margin: 0 0 28px;
+}
+
+/* ============================
    PAGE HERO (páginas internas)
    ============================ */
 .page-hero {
