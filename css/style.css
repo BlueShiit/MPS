@@ -3828,6 +3828,16 @@ body.modal-open {
 }
 .qw-field textarea { resize: vertical; min-height: 62px; }
 
+/* El input de teléfono dentro de phone-wrap no debe tener width:100% */
+.qw-field .phone-wrap input {
+  width: auto;
+  flex: 1;
+  min-width: 0;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0;
+}
+
 /* ── Contador +/- ── */
 .counter {
   display: flex;
