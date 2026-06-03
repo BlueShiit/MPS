@@ -3828,14 +3828,26 @@ body.modal-open {
 }
 .qw-field textarea { resize: vertical; min-height: 62px; }
 
-/* El input de teléfono dentro de phone-wrap no debe tener width:100% */
-.qw-field .phone-wrap input {
+/* El phone-wrap dentro del wizard restaura el layout flex correcto */
+.qw-field .phone-wrap {
+  display: flex;
+}
+.qw-field .phone-wrap select {
   width: auto;
+  flex-shrink: 0;
+  border: none;
+  border-right: 1px solid var(--borde);
+  border-radius: 0;
+  padding: 8px 8px;
+}
+.qw-field .phone-wrap input {
+  width: 0;
   flex: 1;
   min-width: 0;
   border: none !important;
   box-shadow: none !important;
   border-radius: 0;
+  padding: 8px 10px;
 }
 
 /* ── Contador +/- ── */
